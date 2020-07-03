@@ -4,7 +4,7 @@ const Register = () => {
   
     return (
       <>
-        Registration Page
+        Registration View
       </>
     );
   };

@@ -1,6 +1,6 @@
-import Catalog from "./components/Catalog.jsx";
-import Login from "./components/Login.jsx";
-import Register from "./components/Register.jsx";
+import Catalog from "./components/Catalog";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 // All the routes in the application are defined here
 
