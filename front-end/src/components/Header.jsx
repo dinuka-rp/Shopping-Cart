@@ -1,15 +1,17 @@
 import React from "react";
 import { Input } from "antd";
-import MiniCart from "./Mini-Cart";
+import MiniCart from "./MiniCart";
 import styled from "styled-components";
 
-const NavArea = styled.div``;
+const HeadArea = styled.div`
+  text-align: center;
+`;
 
 const { Search } = Input;
 
-const NavBar = () => {
+const Header = () => {
   return (
-    <NavArea>
+    <HeadArea>
       <Search
         placeholder="input search text"
         onSearch={(value) => console.log(value)}
@@ -17,12 +19,12 @@ const NavBar = () => {
         enterButton
       />
 
-      <span>Link to login page |</span>
+      <span>Link to Profile page |</span>
       <span>
         <MiniCart />
       </span>
-    </NavArea>
+    </HeadArea>
   );
 };
 
-export default NavBar;
+export default Header;

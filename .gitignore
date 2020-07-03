@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# to allow the app to work with either npm/ yarn when cloned
+yarn.lock
+package-lock.json
