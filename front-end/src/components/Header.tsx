@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "antd";
 import MiniCart from "./MiniCart";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const HeadArea = styled.div`
   text-align: center;
@@ -9,7 +10,7 @@ const HeadArea = styled.div`
 
 const { Search } = Input;
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <HeadArea>
       <Search
@@ -19,7 +20,8 @@ const Header = () => {
         enterButton
       />
 
-      <span>Link to Profile page |</span>
+      <Link to="/login">Profile</Link>
+
       <span>
         <MiniCart />
       </span>
