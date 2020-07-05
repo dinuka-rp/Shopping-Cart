@@ -1,10 +1,11 @@
 import React from "react";
-import { Card } from "antd";
+import { Card, Button } from "antd";
+import { StarFilled, ShoppingOutlined } from "@ant-design/icons";
 
 interface Props {
-  img?: string | null;
-  // title: string;
-  // price: number;
+  image?: string | undefined;
+  title: string;
+  price: number;
   rating?: number;
 }
 
@@ -16,14 +17,21 @@ const SaleItemCard: React.FC<Props> = (props: Props) => {
       <Card
         hoverable
         style={{ width: 240 }}
-        cover={
-          <img
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-        }
+        cover={<img alt="sales-item" src={props.image} />}
       >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
+        <Meta title={props.title} />
+
+        <div style={{ fontSize: "1.3em" }}>{props.price} LKR</div>
+        <div style={{ fontWeight: 350 }}>
+          Ratings: {props.rating}/5{" "}
+          <StarFilled style={{ fontSize: "1em", color: "#f4eb14" }} />
+        </div>
+
+        <div style={{ marginTop: "10px", textAlign: "center" }}>
+          <Button type="primary" shape="round" icon={<ShoppingOutlined />}>
+            Add to Cart
+          </Button>
+        </div>
       </Card>
     </>
   );
