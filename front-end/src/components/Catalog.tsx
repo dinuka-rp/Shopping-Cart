@@ -4,14 +4,14 @@ import SaleItemCard from "./SaleItemCard";
 
 // pass in this information from Home to Catalog (Information will be received from the backend)
 interface SalesItem {
-  img?: string | null;
+  image?: string | undefined;
   // title: string;
   // price: number;
   rating?: number;
 }
 
 interface Props {
-  salesItems: SalesItem;
+  salesItems: [SalesItem];
 }
 
 // have a separate home page | use this to create the grid of item cards
