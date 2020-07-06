@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 
 const HeadArea = styled.div`
   text-align: center;
+  border-bottom: 1px solid blue;
+  padding-top: 10px;
+  padding-bottom: 7px;
 `;
 
 const { Search } = Input;
@@ -19,11 +22,13 @@ const Header: React.FC = () => {
         style={{ width: 400 }}
         enterButton
       />
-
-      <Link to="/login">Profile</Link>
-
-      <span>
-        <MiniCart />
+      <span style={{ fontSize: "1.2em", float: "right", marginRight: "40px" }}>
+        <span style={{ marginRight: "20px" }}>
+          <Link to="/profile">Profile</Link>
+        </span>
+        <span>
+          <MiniCart />
+        </span>
       </span>
     </HeadArea>
   );
