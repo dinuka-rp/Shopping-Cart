@@ -11,7 +11,6 @@ export const registerUserEndpoint = `${shopBackend}register`;          // Regist
 
 export const orderItemsEndpoint = `${shopBackend}orders`;          // order items by a user
 export const rateItemsEndpoint = `${shopBackend}products/`;          // rate an item by a user
-// products/:id/rate/:rate
 
 
 // patch endpoints

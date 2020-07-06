@@ -24,7 +24,7 @@ const Header: React.FC = () => {
       />
       <span style={{ fontSize: "1.2em", float: "right", marginRight: "40px" }}>
         <span style={{ marginRight: "20px" }}>
-          <Link to="/login">Profile</Link>
+          <Link to="/profile">Profile</Link>
         </span>
         <span>
           <MiniCart />
