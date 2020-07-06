@@ -16,6 +16,8 @@ const Profile: React.FC = () => {
       {/* <Header /> */}{" "}
       {/* can keep this if user is allowed to login after adding items into the cart and resume shopping */}
       <ProfileForm>
+// let user toggle between Login and Register here?
+
         <Login />
       </ProfileForm>
     </>

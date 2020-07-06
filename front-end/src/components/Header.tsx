@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 const HeadArea = styled.div`
   text-align: center;
   border-bottom: 1px solid blue;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 7px;
 `;
 
 const { Search } = Input;

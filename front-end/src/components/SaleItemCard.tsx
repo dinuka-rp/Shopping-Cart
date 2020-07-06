@@ -3,10 +3,12 @@ import { Card, Button } from "antd";
 import { StarFilled, ShoppingOutlined } from "@ant-design/icons";
 
 interface Props {
+  // itemId?: string; // to identify items uniquely in DB
   image?: string | undefined;
   title: string;
   price: number;
   rating?: number;
+  addItemToCart?: () => void;
 }
 
 const { Meta } = Card;
@@ -16,6 +18,7 @@ const SaleItemCard: React.FC<Props> = ({
   title,
   price,
   rating,
+  addItemToCart,
 }: Props) => {
   return (
     <>
@@ -37,7 +40,7 @@ const SaleItemCard: React.FC<Props> = ({
             type="primary"
             shape="round"
             icon={<ShoppingOutlined />}
-            // onClick={addToCart}
+            onClick={addItemToCart}
           >
             Add to Cart
           </Button>
