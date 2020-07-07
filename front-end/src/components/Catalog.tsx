@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "./Header";
-import SaleItemCard from "./SaleItemCard";
+import SalesProduct from "./SalesProduct";
 
 // pass in this information from Home to Catalog (Information will be received from the backend)
-interface SalesItem {
+interface Product {
   itemId: string;
   image?: string | undefined;
   // title: string;
@@ -12,7 +12,7 @@ interface SalesItem {
 }
 
 interface Props {
-  salesItems: [SalesItem];
+  salesItems: [Product];
 }
 
 // have a separate home page | use this to create the grid of item cards
@@ -29,7 +29,9 @@ const Catalog: React.FC<Props> = (props: Props) => {
         {/* map object received from backend api which contains all the details about all the prodcuts into multiple cards here */}
         {/* {props.salesItems.map((item) => ( */}
 
-          <SaleItemCard
+          <SalesProduct
+          // make this a single object - pass in only item object as props
+            // item = {item}
             // itemId={item.itemId}
             image={"https://os.alipayobjects.com/rmsportal/UXamdIxYSkXfoVo.jpg"}
             title={"Product Title"}

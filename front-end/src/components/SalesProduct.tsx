@@ -2,23 +2,35 @@ import React from "react";
 import { Card, Button } from "antd";
 import { StarFilled, ShoppingOutlined } from "@ant-design/icons";
 
+interface Product {
+  itemId: string;
+  image?: string | undefined;
+  // title: string;
+  // price: number;
+  rating?: number;
+}
+
 interface Props {
+  // item: Product;
+  addItemToCart?: () => void;
+
   // itemId?: string; // to identify items uniquely in DB
   image?: string | undefined;
   title: string;
   price: number;
   rating?: number;
-  addItemToCart?: () => void;
 }
 
 const { Meta } = Card;
 
-const SaleItemCard: React.FC<Props> = ({
+const SalesProduct: React.FC<Props> = ({
+  // item,
+  addItemToCart,
+
   image,
   title,
   price,
   rating,
-  addItemToCart,
 }: Props) => {
   return (
     <>
@@ -50,4 +62,4 @@ const SaleItemCard: React.FC<Props> = ({
   );
 };
 
-export default SaleItemCard;
+export default SalesProduct;
