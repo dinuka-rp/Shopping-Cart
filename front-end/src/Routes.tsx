@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import Catalog from "./components/Catalog";
+import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Register from "./components/Register";
 
@@ -10,7 +10,7 @@ import Register from "./components/Register";
 const Routes: React.FC = () => {
   return (
     <>
-      <Route key="/" exact path="/" component={Catalog} />    {/* this should be Home.tsx */}
+      <Route key="/" exact path="/" component={Home} />    {/* this should be Home.tsx */}
       <Route key="/profile" path="/profile" component={Profile} />
       <Route key="/register" path="/register" component={Register} />
     </>
