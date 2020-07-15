@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import Catalog from "../components/Catalog";
+import ProductGrid from "../components/ProductGrid";
+import { retrieveProducts } from "../services/ProductsManagement";
 
 const Home: React.FC = () => {
+  const [allProducts, setAllProducts] = useState(null);
+
+  useEffect(() => {
+    retrieveProducts().then((products) => setAllProducts(products));
+  }, []);
+
   return (
     <>
       <Header />
-      {/* <Catalog /> */}
+
+      {console.log(allProducts)}
+      <ProductGrid salesProducts={allProducts} />
     </>
   );
 };

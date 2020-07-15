@@ -1,18 +1,16 @@
 import axios from "axios";
 import {
-  getAllItemsEndpoint,
+  getProductsEndpoint,
   orderItemsEndpoint,
-  rateItemsEndpoint,
+  rateProductEndpoint,
 } from "../endpoints";
 
-// methods for user purchasing & rating of items
+// methods for user purchasing & rating of products
 
 // Get all items available in the shop
-export async function retrieveAllItems() {
-
-  const res = await axios.get(getAllItemsEndpoint, {
+export async function retrieveProducts() {
+  const res = await axios.get(getProductsEndpoint, {
     headers: {
-      // "x-access-token": token,
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },
@@ -23,12 +21,36 @@ export async function retrieveAllItems() {
 
 // ------------
 
+// Rate products by a user
+export async function rateProduct(itemId: string, rating: number) {
+  let token: string | null;
+  if (localStorage.getItem("token") != null) {
+    token = localStorage.getItem("token");
+
+    const res = await axios.post(
+      rateProductEndpoint + `:${itemId}/rate/:${rating}`,
+      {
+        headers: {
+          "x-access-token": token,
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+
+    return res;
+  } else {
+    console.log("token not found");
+  }
+}
+
+
+
 // Order items by a user
 export async function orderItems(title: string) {
   let postBody = {
     title: title,
     // more details ned to be entered here ------------->>>>>
-
   };
 
   let token: string | null;
@@ -48,25 +70,3 @@ export async function orderItems(title: string) {
     console.log("token not found");
   }
 }
-
-// Order items by a user
-export async function rateItem(itemId: string, rating:number) {
-  
-    let token: string | null;
-    if (localStorage.getItem("token") != null) {
-      token = localStorage.getItem("token");
-  
-      const res = await axios.post(rateItemsEndpoint+`:${itemId}/rate/:${rating}`, {
-        headers: {
-          "x-access-token": token,
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-  
-      return res;
-    } else {
-      console.log("token not found");
-    }
-  }
-  

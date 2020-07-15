@@ -1,37 +1,28 @@
 import React from "react";
 import { Card, Button } from "antd";
 import { StarFilled, ShoppingOutlined } from "@ant-design/icons";
+import { IProduct } from "../types/Product";
 
 interface Props {
-  // itemId?: string; // to identify items uniquely in DB
-  image?: string | undefined;
-  title: string;
-  price: number;
-  rating?: number;
+  item: IProduct;
   addItemToCart?: () => void;
 }
 
 const { Meta } = Card;
 
-const SaleItemCard: React.FC<Props> = ({
-  image,
-  title,
-  price,
-  rating,
-  addItemToCart,
-}: Props) => {
+const Product: React.FC<Props> = ({ item, addItemToCart }: Props) => {
   return (
-    <>
+    <div style={{ display: "inline-block", margin: "12px" }}>
       <Card
         hoverable
         style={{ width: 200 }}
-        cover={<img alt="sales-item" src={image} />}
+        cover={<img alt="sales-item" src={item.image} />}
       >
-        <Meta title={title} />
+        <Meta title={item.title} />
 
-        <div style={{ fontSize: "1.3em" }}>{price} LKR</div>
+        <div style={{ fontSize: "1.3em" }}>{item.price} LKR</div>
         <div style={{ fontWeight: 350 }}>
-          Ratings: {rating}/5{" "}
+          Ratings: {item.rating}/5{" "}
           <StarFilled style={{ fontSize: "1em", color: "#f4eb14" }} />
         </div>
 
@@ -46,8 +37,8 @@ const SaleItemCard: React.FC<Props> = ({
           </Button>
         </div>
       </Card>
-    </>
+    </div>
   );
 };
 
-export default SaleItemCard;
+export default Product;
