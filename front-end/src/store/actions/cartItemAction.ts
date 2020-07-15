@@ -7,10 +7,10 @@ export const addItem = (item: IProduct) => {
   };
 };
 
-// remove entire quantity of items saved in 
+// remove entire quantity of items saved in
 export const removeItem = (item: IProduct) => {
   return {
     type: "REMOVE",
-    payload: {item},
+    payload: item,
   };
 };
