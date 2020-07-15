@@ -4,6 +4,7 @@ import MiniCart from "./MiniCart";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+// serach bar size has to be asjusted to suite phone views
 const HeadArea = styled.div`
   text-align: center;
   border-bottom: 1px solid blue;
@@ -14,12 +15,14 @@ const HeadArea = styled.div`
 const { Search } = Input;
 
 const Header: React.FC = () => {
+  const searchWidth = 400;    // this should be altered based on window-width to make sure that the UI won't be messy on mobile devices
+
   return (
     <HeadArea>
       <Search
         placeholder="input search text"
         onSearch={(value) => console.log(value)}
-        style={{ width: 400 }}
+        style={{ width: searchWidth }}
         enterButton
       />
       <span style={{ fontSize: "1.2em", float: "right", marginRight: "40px" }}>

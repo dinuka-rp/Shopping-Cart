@@ -12,7 +12,7 @@ const { Meta } = Card;
 
 const Product: React.FC<Props> = ({ item, addItemToCart }: Props) => {
   return (
-    <>
+    <div style={{ display: "inline-block", margin: "12px" }}>
       <Card
         hoverable
         style={{ width: 200 }}
@@ -37,7 +37,7 @@ const Product: React.FC<Props> = ({ item, addItemToCart }: Props) => {
           </Button>
         </div>
       </Card>
-    </>
+    </div>
   );
 };
 
