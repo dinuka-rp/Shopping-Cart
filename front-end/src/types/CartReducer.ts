@@ -4,7 +4,7 @@ import { ICartItem } from "./Product";
 // let userCartName:string = `${userName}_cart`;
 
 export interface ICart {
-  cartItems?: ICartItem[];
+  cartItems: ICartItem[];
   subTotal?: number;
   deliveryCharges?: number;
   otherCharges?: number;
