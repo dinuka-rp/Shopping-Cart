@@ -13,10 +13,9 @@ const cartItemReducer = (
       return [...state, action.payload];
     case "REMOVE_ITEM": // remove item
       return [...state.filter((item) => item.itemId !== action.payload.itemId)];
-    case "REDUCE_QUANTITY":   // decrease quantity of an item
-    return state;   // temporary
-    // [...state[state.indexOf(action.payload)]];
-    // [...state.splice(state.indexOf(action.payload))];    // splice returns the removed element array ????
+    case "REDUCE_QUANTITY": // decrease quantity of an item
+      state.splice(state.indexOf(action.payload),1);
+      return state;
     default:
       return state;
   }

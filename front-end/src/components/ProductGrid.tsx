@@ -2,7 +2,7 @@ import React from "react";
 import Product from "./Product";
 import { IProduct } from "../types/Product";
 import { useDispatch } from "react-redux";
-import { addItem, reduceQuantity } from "../store/actions/cartItemAction";
+import { addItem } from "../store/actions/cartItemAction";
 // pass in this information from Home to Catalog (Information will be received from the backend)
 
 interface Props {
@@ -30,14 +30,6 @@ const ProductGrid: React.FC<Props> = (props: Props) => {
                 addItemToReduxStore(item);
               }}
             />
-
-            {/* <button
-              onClick={() => {
-                dispatch(reduceQuantity(item));
-              }}
-            >
-              Decrease
-            </button> */}
           </>
         ))}
     </section>
