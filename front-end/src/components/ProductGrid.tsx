@@ -15,24 +15,22 @@ const ProductGrid: React.FC<Props> = (props: Props) => {
 
   const addItemToReduxStore = (item: IProduct) => {
     // add to redux state from here
-
-    dispatch(addItem(item));    // add new item to cart
-
-    // console.log("Item was added to cart.");
-    // console.log({ item });
+    dispatch(addItem(item)); // add new item to cart
   };
 
   return (
     <section style={{ width: "90%", textAlign: "center", margin: "auto" }}>
       {props.salesProducts &&
         props.salesProducts.map((item) => (
-          <Product
-            key={item.itemId}
-            item={item}
-            addItemToCart={() => {
-              addItemToReduxStore(item);
-            }}
-          />
+          <>
+            <Product
+              key={item.itemId}
+              item={item}
+              addItemToCart={() => {
+                addItemToReduxStore(item);
+              }}
+            />
+          </>
         ))}
     </section>
   );

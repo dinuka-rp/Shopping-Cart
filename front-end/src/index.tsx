@@ -5,12 +5,12 @@ import "antd/dist/antd.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { createStore } from "redux";
-import cartItemReducer from "./store/reducers/cartItemReducer";
+import {rootReducer} from "./store/reducers";
 import { Provider } from "react-redux";
 
 // initialize redux store
 const store = createStore(
-  cartItemReducer,
+  rootReducer,
   (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION__() // redux devtools chrome extension
 );

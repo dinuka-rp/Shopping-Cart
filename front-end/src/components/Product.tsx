@@ -20,7 +20,7 @@ const Product: React.FC<Props> = ({ item, addItemToCart }: Props) => {
       >
         <Meta title={item.title} />
 
-        <div style={{ fontSize: "1.3em" }}>{item.price} LKR</div>
+        <div style={{ fontSize: "1.3em" }}>{item.price} LKR</div>      {/*the format here needs to be decided >>>>>*/}
         <div style={{ fontWeight: 350 }}>
           Ratings: {item.rating}/5{" "}
           <StarFilled style={{ fontSize: "1em", color: "#f4eb14" }} />
