@@ -15,7 +15,9 @@ const ProductGrid: React.FC<Props> = (props: Props) => {
 
   const addItemToReduxStore = (item: IProduct) => {
     // add to redux state from here
-    dispatch(addItem(item)); // add new item to cart
+    dispatch(addItem(item,1)); // add new item to cart
+
+    // if item already exists, change quantity of item instead of just adding the item again (call different method from Redux store)
   };
 
   return (

@@ -2,10 +2,10 @@ import { IProduct } from "../../types/Product";
 
 // export type ItemAction = addItem;
 
-export const addItem = (item: IProduct) => {
+export const addItem = (item: IProduct, quant: number) => {
   return {
     type: "ADD_ITEM",
-    payload: item,
+    payload: { product: item, quantity: quant },
   };
 };
 
