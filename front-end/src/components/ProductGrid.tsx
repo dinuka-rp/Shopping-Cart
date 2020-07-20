@@ -1,8 +1,9 @@
 import React from "react";
 import Product from "./Product";
-import { IProduct } from "../types/Product";
-import { useDispatch } from "react-redux";
-import { addItem } from "../store/actions/cartItemAction";
+import { IProduct, ICartItem } from "../types/Product";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem, alterQuantity } from "../store/actions/cartItemAction";
+import { ReduxState } from "../store/reducers";
 // pass in this information from Home to Catalog (Information will be received from the backend)
 
 interface Props {
@@ -12,10 +13,26 @@ interface Props {
 //  create the grid of products
 const ProductGrid: React.FC<Props> = (props: Props) => {
   const dispatch = useDispatch(); // used to update redux store state
+  let cart: any = useSelector((state: ReduxState) => state.cart); // get entire cart object saved in Redux state
 
-  const addItemToReduxStore = (item: IProduct) => {
+  const addItemToReduxStore = (product: IProduct) => {
     // add to redux state from here
-    dispatch(addItem(item)); // add new item to cart
+
+    let cartItems = cart.cartItems;
+
+    // filter cartItems[] by product and get the item with quantity(if it exists)
+    let alteredItem = cartItems.find(
+      (item: ICartItem) => item.product === product
+    );
+
+    if (!cartItems.includes(alteredItem)) {
+      // if item doesn't exists in Redux store cart
+      dispatch(addItem(product)); // add new item to cart
+    } else {
+      // if item already exists, change quantity of item instead of just adding the item again
+      let itemQuantity: number = alteredItem.quantity;
+      dispatch(alterQuantity(product, itemQuantity + 1));
+    }
   };
 
   return (
