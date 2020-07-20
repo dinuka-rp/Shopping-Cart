@@ -27,7 +27,7 @@ const ProductGrid: React.FC<Props> = (props: Props) => {
 
     if (!cartItems.includes(alteredItem)) {
       // if item doesn't exists in Redux store cart
-      dispatch(addItem(product, 1)); // add new item to cart
+      dispatch(addItem(product)); // add new item to cart
     } else {
       // if item already exists, change quantity of item instead of just adding the item again
       let itemQuantity: number = alteredItem.quantity;
