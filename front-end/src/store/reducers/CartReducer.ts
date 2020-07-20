@@ -3,7 +3,7 @@ import { CartItemsActionTypes } from "../../types/Actions";
 
 const initialCartState: ICart = {
   cartItems: [],
-  // subTotal: 0,
+  subTotal: 0,
   // deliveryCharges: 0,
   // otherCharges: 0,
   // otherChargesForPaymentMethod: 0,
@@ -29,9 +29,20 @@ const CartReducer = (
           ),
         ],
       };
-    case "REDUCE_QUANTITY": // decrease quantity of an item
-      // state.splice(state.indexOf(action.payload), 1);      // this method isn't followed for quantity anymore
-      return { cartItems: state };
+    case "ALTER_QUANTITY": // alter quantity of an item
+      let alteredItem = state.cartItems.find(
+        (item) => item.product.itemId === action.payload.product.itemId
+      );
+      if (alteredItem) {
+        // if the item exists in the cart
+        alteredItem.quantity = action.payload.quantity;
+
+        let alteredIndex: number = state.cartItems.findIndex(
+          (item) => item.product.itemId === action.payload.product.itemId
+        );
+        state.cartItems[alteredIndex] = alteredItem; // replace the new item details in the state
+      }
+      return state;
     default:
       return state;
   }
@@ -39,5 +50,4 @@ const CartReducer = (
 
 export default CartReducer;
 
-// increase/ decrease => change quantity
 // buy now & checkout
