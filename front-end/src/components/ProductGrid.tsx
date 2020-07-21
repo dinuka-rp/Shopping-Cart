@@ -22,7 +22,7 @@ const ProductGrid: React.FC<Props> = (props: Props) => {
 
     // filter cartItems[] by product and get the item with quantity(if it exists)
     let alteredItem = cartItems.find(
-      (item: ICartItem) => item.product === product
+      (item: ICartItem) => item.product.itemId === product.itemId
     );
 
     if (!cartItems.includes(alteredItem)) {
