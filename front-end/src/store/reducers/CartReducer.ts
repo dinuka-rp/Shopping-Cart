@@ -1,5 +1,5 @@
 import { ICart } from "../../types/CartReducer";
-import { CartItemsActionTypes } from "../../types/Actions";
+// import { CartItemsActionTypes } from "../../types/Actions";
 
 const initialCartState: ICart = {
   cartItems: [],
@@ -14,7 +14,7 @@ const initialCartState: ICart = {
 
 const CartReducer = (
   state = initialCartState,
-  action: CartItemsActionTypes
+  action: any
 ) => {
   // action.payload gives the cart item to be added/ deleted/ decrease quantity
   switch (action.type) {
