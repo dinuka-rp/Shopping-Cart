@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Register from "./components/Register";
+import Cart from "./pages/Cart";
 
 // All the routes in the application are defined here
 // define routes like this or set of components and load this component in the App.tsx??
@@ -13,6 +14,7 @@ const Routes: React.FC = () => {
       <Route key="/" exact path="/" component={Home} />    {/* this should be Home.tsx */}
       <Route key="/profile" path="/profile" component={Profile} />
       <Route key="/register" path="/register" component={Register} />
+      <Route key="/cart" path="/cart" component={Cart} />
     </>
   );
 };
