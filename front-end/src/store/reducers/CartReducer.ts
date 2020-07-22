@@ -12,23 +12,17 @@ const initialCartState: ICart = {
   // userId?: string;
 };
 
-const CartReducer = (
-  state = initialCartState,
-  action: any
-) => {
+const CartReducer = (state = initialCartState, action: any) => {
   // action.payload gives the cart item to be added/ deleted/ decrease quantity
   switch (action.type) {
     case "ADD_ITEM": // add item
       return { ...state, cartItems: [...state.cartItems, action.payload] };
     case "REMOVE_ITEM": // remove item
-      return {
-        ...state,
-        cartItems: [
-          state.cartItems.filter(
-            (item) => item.product.itemId !== action.payload.itemId
-          ),
-        ],
-      };
+      let newCartItems = state.cartItems.filter(
+        (item) => item.product.itemId !== action.payload.itemId
+      );
+      state.cartItems = newCartItems;
+      return { ...state };
     case "ALTER_QUANTITY": // alter quantity of an item
       let alteredItem = state.cartItems.find(
         (item) => item.product.itemId === action.payload.product.itemId
@@ -42,7 +36,7 @@ const CartReducer = (
         );
         state.cartItems[alteredIndex] = alteredItem; // replace the new item details in the state
       }
-      return state;
+      return { ...state };
     default:
       return state;
   }

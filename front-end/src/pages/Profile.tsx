@@ -1,5 +1,5 @@
 import React from "react";
-// import Header from "../components/Header";
+import Header from "../components/Header";
 import Login from "../components/Login";
 import styled from "styled-components";
 
@@ -13,7 +13,7 @@ const ProfileForm = styled.div`
 const Profile: React.FC = () => {
   return (
     <>
-      {/* <Header /> */}{" "}
+      <Header />
       {/* can keep this if user is allowed to login after adding items into the cart and resume shopping */}
       <ProfileForm>
          {/* let user toggle between Login and Register here? */}

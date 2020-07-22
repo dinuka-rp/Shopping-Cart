@@ -1,17 +1,90 @@
 import React from "react";
-// import { InputNumber } from 'antd';
+import { InputNumber, Col } from "antd";
+import { ICartItem } from "../types/Product";
+import { useDispatch } from "react-redux";
+import { alterQuantity, removeItem } from "../store/actions/cartItemAction";
+import { DeleteTwoTone } from "@ant-design/icons";
+import styled from "styled-components";
+import { Row } from "antd";
+
+const Item = styled.div`
+  border: 1px solid #ddd;
+  margin: 12px;
+  padding: 10px;
+  align-items: center;
+  .displayText {
+    background-color: red;
+  }
+  #total {
+    font-weight: 600;
+    font-size: 1.5em;
+  }
+  #delete {
+    float:right;
+    width: fit-content;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+    }
+  }
+`;
+
+interface Props {
+  item: ICartItem;
+}
 
 // Component that displays details of each item in cart with option to alter quantity, remove from cart
+const CartItem: React.FC<Props> = ({ item }: Props) => {
+  const dispatch = useDispatch(); // used to update redux store state
 
-const CartItem: React.FC = () => {
-
-    return (
-      <>
-      {/* might need to have the updateItemQuantity method in parent component */}
-        {/* <InputNumber min={1} defaultValue={1} onChange={onUpdateItemQuantity} /> */}
-      </>
-    );
+  const onUpdateItemQuantity = (newItemQuantity: any) => {
+    dispatch(alterQuantity(item.product, newItemQuantity));
   };
-  
-  export default CartItem;
-  
+
+  const onRemoveItem = () => {
+    dispatch(removeItem(item.product));
+  };
+
+  return (
+    <Item>
+      {/* give hover effect to this section */}
+      <Row>
+        <Col xs={12} md={8} lg={8} xl={8}>
+          <img
+            alt="sales-item"
+            src={item.product.image}
+            width="80px"
+            height="80px"
+          />
+        </Col>
+        <Col xs={12} sm={8} md={8} lg={6} xl={4}>
+          {item.product.title}
+        </Col>
+        <Col xs={24} md={8} lg={6} xl={8}>
+          <span>
+            $ {item.product.price} x {' '}
+            <InputNumber
+              min={1}
+              defaultValue={item.quantity}
+              onChange={onUpdateItemQuantity}
+              style={{width:"60px"}}
+            />
+          </span>
+
+          <div id="total">
+            $ {Math.round(item.product.price * item.quantity * 100) / 100}
+          {/* round to 2 decimal places */}
+          </div>
+        </Col>
+        <Col xs={2} md={2} lg={2} xl={4}>
+          <div id="delete" onClick={onRemoveItem}>
+            <DeleteTwoTone twoToneColor="red" style={{ fontSize: "18px" }} />
+          </div>
+        </Col>
+      </Row>
+    </Item>
+  );
+};
+
+export default CartItem;

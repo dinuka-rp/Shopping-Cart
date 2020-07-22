@@ -14,7 +14,7 @@ const Home: React.FC = () => {
     <>
       <Header />
 
-      {console.log(allProducts)}
+      {/* {console.log(allProducts)} */}
       <ProductGrid salesProducts={allProducts} />
     </>
   );

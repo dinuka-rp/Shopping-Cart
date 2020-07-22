@@ -7,12 +7,24 @@ import * as serviceWorker from "./serviceWorker";
 import { createStore } from "redux";
 import { rootReducer } from "./store/reducers";
 import { Provider } from "react-redux";
-import { persistStore} from "redux-persist";
+import { persistReducer, persistStore} from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+
+// give dynamic name for cart when saving in Redux Persist storage would be enough
+// let cartUser = "Dinuka"   // get this from local storage/ redux
+// let cartName = `cart_${cartUser}`;
+let cartName = `cart_guest`;
+
+const cartPersistConfig = {
+  key: cartName,
+  storage,
+};
+const persReducer:any = persistReducer(cartPersistConfig,rootReducer);
 
 // initialize redux store
 const store = createStore(
-  rootReducer,
+  persReducer,
   (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION__() // redux devtools chrome extension
 );
