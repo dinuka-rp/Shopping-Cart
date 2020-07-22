@@ -4,18 +4,17 @@ import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
 import Header from "../components/Header";
 import styled from "styled-components";
-import { Row, Col } from "antd";
+import { Row, Col, Button } from "antd";
 
 const ItemsSection = styled.div`
   max-height: 90vh;
-  //   background-color: orange;
   overflow-y: auto;
 `;
 const TotalSection = styled.div`
   max-height: 90vh;
   border: 1px solid #ccc;
   margin: 12px;
-  padding: 20px;
+  padding: 20px 30px;
   overflow-y: auto;
   text-align: right;
   .group {
@@ -23,6 +22,9 @@ const TotalSection = styled.div`
   }
   .value {
     font-weight: 600;
+  }
+  .btn {
+    text-align: center;
   }
 `;
 
@@ -74,8 +76,20 @@ const Cart: React.FC = () => {
               <div className={"value"}>$ {cart.totalAmount}</div>
             </div>
 
-
+            <div className={"btn"}>
+              <Button type="primary" block>
+                Checkout
+              </Button>
+            </div>
           </TotalSection>
+
+          <div
+            style={{  textAlign: "center", padding: "10px 40px" }}
+          >
+            <Button type="default" block>
+              Continue Shopping
+            </Button>
+          </div>
         </Col>
       </Row>
     </>
