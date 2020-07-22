@@ -22,6 +22,10 @@ const Item = styled.div`
     // width: 20%;
     text-align: center;
   }
+  #total {
+    font-weight: 600;
+    font-size: 1.5em;
+  }
   #delete {
     // float:right;
     transition: all 0.2s ease-in-out;
@@ -62,16 +66,18 @@ const CartItem: React.FC<Props> = ({ item }: Props) => {
       <div className="displayText">{item.product.title}</div>
 
       <div className="displayText">
-        <div>
+        <span>
           $ {item.product.price} x
           <InputNumber
             min={1}
             defaultValue={item.quantity}
             onChange={onUpdateItemQuantity}
           />
-        </div>
+        </span>
         {/* round to 2 decimal places */}
-        <div>= $ {item.product.price * item.quantity}</div>  
+        <span id="total">
+          $ {Math.round(item.product.price * item.quantity * 100) / 100}
+        </span>
       </div>
       <div className="displayText" id="delete" onClick={onRemoveItem}>
         <DeleteTwoTone twoToneColor="red" style={{ fontSize: "18px" }} />
