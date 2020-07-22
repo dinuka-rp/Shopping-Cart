@@ -3,6 +3,7 @@ import { ReduxState } from "../store/reducers";
 import { useSelector } from "react-redux";
 import { ICartItem } from "../types/Product";
 import CartItem from "../components/CartItem";
+import Header from "../components/Header";
 
 // this will show the shopping cart
 const Cart: React.FC = () => {
@@ -11,24 +12,15 @@ const Cart: React.FC = () => {
 
   return (
     <>
-      <section>{/* display minicart in header */}</section>
+      {/* <section>display minicart in header</section> */}
+      <Header />
+
 
       <section>
         {cartItems.length > 0 ? (
           cartItems.map((cartItem) => (
             <>
-              <CartItem
-                key={cartItem.product.itemId}
-                item={cartItem}
-
-                // product={cartItem.product}
-                // quantity={cartItem.quantity}
-
-                // image={cartItem.product.image}
-                // title={cartItem.product.title}
-                // price={cartItem.product.price}
-                // quantity={cartItem.quantity}
-              />
+              <CartItem key={cartItem.product.itemId} item={cartItem} />
             </>
           ))
         ) : (

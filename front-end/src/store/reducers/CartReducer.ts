@@ -42,7 +42,7 @@ const CartReducer = (
         );
         state.cartItems[alteredIndex] = alteredItem; // replace the new item details in the state
       }
-      return state;
+      return {...state};
     default:
       return state;
   }

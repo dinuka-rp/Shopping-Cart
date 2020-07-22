@@ -1,22 +1,23 @@
 import React from "react";
 import { InputNumber } from "antd";
 import { ICartItem } from "../types/Product";
+import { useDispatch } from "react-redux";
+import { alterQuantity } from "../store/actions/cartItemAction";
+import { DeleteTwoTone } from "@ant-design/icons";
 
 interface Props {
   item: ICartItem;
-  //   title: string;
-  //   price: number;
-  //   image?: string | undefined;
-  //   quantity: number;
 }
 
 // Component that displays details of each item in cart with option to alter quantity, remove from cart
-const CartItem: React.FC<Props> = ({
-  // image,
-  // title,
-  // price,
-  item,
-}: Props) => {
+const CartItem: React.FC<Props> = ({ item }: Props) => {
+  const dispatch = useDispatch(); // used to update redux store state
+
+  const onUpdateItemQuantity = (newItemQuantity: any) => {
+    // not getting persisted?????????
+    dispatch(alterQuantity(item.product, newItemQuantity));
+  };
+
   return (
     <div>
       {/* give hover effect to this section */}
@@ -31,8 +32,10 @@ const CartItem: React.FC<Props> = ({
       <InputNumber
         min={1}
         defaultValue={item.quantity}
-        // onChange={onUpdateItemQuantity}
+        onChange={onUpdateItemQuantity}
       />
+
+      <DeleteTwoTone twoToneColor="red"  style={{fontSize :'18px'}}/>
     </div>
   );
 };
