@@ -15,10 +15,17 @@ const HeadArea = styled.div`
 const { Search } = Input;
 
 const Header: React.FC = () => {
-  const searchWidth = 400;    // this should be altered based on window-width to make sure that the UI won't be messy on mobile devices
+  const searchWidth = 400; // this should be altered based on window-width to make sure that the UI won't be messy on mobile devices
 
   return (
     <HeadArea>
+      <span style={{ fontSize: "1.2em", float: "left", marginLeft: "40px" }}>
+        <span style={{ marginRight: "20px" }}>
+          <Link to="/">Home</Link>
+        </span>
+      </span>
+
+      {/* have boolean condition from props to show/hide search bar */}
       <Search
         placeholder="input search text"
         onSearch={(value) => console.log(value)}
@@ -30,7 +37,9 @@ const Header: React.FC = () => {
           <Link to="/profile">Profile</Link>
         </span>
         <span>
-          <MiniCart />
+          <Link to="/cart">
+            <MiniCart />
+          </Link>
         </span>
       </span>
     </HeadArea>
