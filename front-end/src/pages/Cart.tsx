@@ -5,10 +5,16 @@ import CartItem from "../components/CartItem";
 import Header from "../components/Header";
 import styled from "styled-components";
 import { Row, Col, Button } from "antd";
+import { Link } from "react-router-dom";
 
 const ItemsSection = styled.div`
   max-height: 90vh;
   overflow-y: auto;
+  .noItems {
+    padding: 30px;
+    text-align: center;
+    color: #bbb;
+  }
 `;
 const TotalSection = styled.div`
   max-height: 90vh;
@@ -52,7 +58,7 @@ const Cart: React.FC = () => {
                 </>
               ))
             ) : (
-              <span>No Items in Cart</span>
+              <div className={"noItems"}>No Items in Cart</div>
             )}
           </ItemsSection>
         </Col>
@@ -61,6 +67,7 @@ const Cart: React.FC = () => {
             {/* display total and stuff */}
             <div className={"group"}>
               <div>Subtotal Price</div>
+              {/* round to 2 decimal places */}
               <div className={"value"}>$ {cart.subTotal}</div>
             </div>
             <div className={"group"}>
@@ -72,7 +79,18 @@ const Cart: React.FC = () => {
               <div className={"value"}>$ {cart.deliveryCharges}</div>
             </div>
             <div className={"group"}>
+              <div>Other Charges</div>
+              <div className={"value"}>$ {cart.otherCharges}</div>
+            </div>
+            <div className={"group"}>
+              <div>Other Charges for Payment Method</div>
+              <div className={"value"}>
+                $ {cart.otherChargesForPaymentMethod}
+              </div>
+            </div>
+            <div className={"group"}>
               <div>Total Price</div>
+              {/* round to 2 decimal places */}
               <div className={"value"}>$ {cart.totalAmount}</div>
             </div>
 
@@ -83,12 +101,12 @@ const Cart: React.FC = () => {
             </div>
           </TotalSection>
 
-          <div
-            style={{  textAlign: "center", padding: "10px 40px" }}
-          >
-            <Button type="default" block>
-              Continue Shopping
-            </Button>
+          <div style={{ textAlign: "center", padding: "10px 40px" }}>
+            <Link to="/">
+              <Button type="default" block>
+                Continue Shopping
+              </Button>
+            </Link>
           </div>
         </Col>
       </Row>

@@ -6,6 +6,7 @@ import { ICartItem } from "./Product";
 export interface ICart {
   cartItems: ICartItem[];
   subTotal?: number;
+  discount?: number;
   deliveryCharges?: number;
   otherCharges?: number;
   otherChargesForPaymentMethod?: number;
