@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Header from "../components/Header";
+import HeaderArea from "../components/Header";
 import ProductGrid from "../components/ProductGrid";
 import { retrieveProducts } from "../services/ProductsManagement";
 import { IProduct } from "../types/Product";
@@ -9,12 +9,10 @@ const Home: React.FC = () => {
   const [searchResults, setSearchResults] = useState<IProduct[]>();
 
   const search = (searchTerm: string) => {
-    if (allProducts?.length) {
       const results = allProducts?.filter((salesitem: IProduct) =>
         salesitem.title.toLowerCase().includes(searchTerm.trim())
       );
       setSearchResults(results);
-    }
   };
 
   useEffect(() => {
@@ -26,7 +24,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Header search={search} />
+      <HeaderArea search={search} />
       
       <ProductGrid salesProducts={searchResults} />
     </>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ReduxState } from "../store/reducers";
 import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
-import Header from "../components/Header";
+import HeaderArea from "../components/Header";
 import styled from "styled-components";
 import { Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
@@ -55,7 +55,7 @@ const Cart: React.FC = () => {
   return (
     <>
       {/* <section>display minicart in header</section> */}
-      <Header />
+      <HeaderArea />
 
       <Row>
         <Col xs={24} md={12} xl={16}>
