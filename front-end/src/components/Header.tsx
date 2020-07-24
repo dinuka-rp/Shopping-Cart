@@ -4,7 +4,10 @@ import MiniCart from "./MiniCart";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-// serach bar size has to be asjusted to suite phone views
+interface Props {
+  search?: (searchTerm: string) => void;
+}
+
 const HeadArea = styled.div`
   text-align: center;
   border-bottom: 1px solid blue;
@@ -14,9 +17,7 @@ const HeadArea = styled.div`
 
 const { Search } = Input;
 
-const Header: React.FC = () => {
-  const searchWidth = 400; // this should be altered based on window-width to make sure that the UI won't be messy on mobile devices
-
+const Header: React.FC<Props> = ({ search }: Props) => {
   return (
     <HeadArea>
       <span style={{ fontSize: "1.2em", float: "left", marginLeft: "40px" }}>
@@ -26,12 +27,14 @@ const Header: React.FC = () => {
       </span>
 
       {/* have boolean condition from props to show/hide search bar */}
-      <Search
-        placeholder="input search text"
-        onSearch={(value) => console.log(value)}
-        style={{ width: searchWidth }}
-        enterButton
-      />
+      {search && (
+        <Search
+          placeholder="input search text"
+          onSearch={(value) => search(value)}
+          style={{ maxWidth: 400 }}
+          enterButton
+        />
+      )}
       <span style={{ fontSize: "1.2em", float: "right", marginRight: "40px" }}>
         <span style={{ marginRight: "20px" }}>
           <Link to="/profile">Profile</Link>

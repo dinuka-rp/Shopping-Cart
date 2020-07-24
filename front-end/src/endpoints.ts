@@ -2,7 +2,8 @@ export const shopBackend = process.env.REACT_APP_API_ENDPOINT;
 
 
 // get endpoints
-export const getProductsEndpoint = `${shopBackend}products`;        // get all shop products from backend
+// export const getProductsEndpoint = `${shopBackend}products`;        // get all shop products from backend
+export const getProductsEndpoint = `https://run.mocky.io/v3/7a5b07b3-948a-49d0-9bf2-a6e83c614966`;        // get all shop products from backend
 
 
 // post endpoints

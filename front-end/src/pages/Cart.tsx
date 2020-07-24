@@ -15,6 +15,15 @@ const ItemsSection = styled.div`
     text-align: center;
     color: #bbb;
   }
+  #clear {
+    text-align: right;
+    cursor: pointer;
+    margin-right: 20px;
+    color: #aaa;
+    &:hover {
+      color: red;
+    }
+  }
 `;
 const TotalSection = styled.div`
   max-height: 90vh;
@@ -52,13 +61,18 @@ const Cart: React.FC = () => {
         <Col xs={24} md={12} xl={16}>
           <ItemsSection>
             {cartItems.length > 0 ? (
-              cartItems.map((cartItem: any) => (
-                <>
+              <>
+                {cartItems.map((cartItem: any) => (
                   <CartItem key={cartItem.product.itemId} item={cartItem} />
-                </>
-              ))
+                ))}
+                <div id={"clear"}>clear cart</div>
+              </>
             ) : (
-              <div className={"noItems"}>No Items in Cart</div>
+              <div className={"noItems"}>
+                {/* onclick -> reset state of CartReducer, remove save state from persist storage */}
+                {/* https://stackoverflow.com/questions/35622588/how-to-reset-the-state-of-a-redux-store */}
+                No Items in Cart
+                </div>
             )}
           </ItemsSection>
         </Col>

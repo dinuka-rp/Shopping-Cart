@@ -50,12 +50,18 @@ const CartReducer = (state = initialCartState, action: any) => {
         let existingQuantity: number = alteredItem.quantity;
         alteredItem.quantity = action.payload.quantity;
 
-        if(state.subTotal && state.totalAmount){
-        // change subTotal & totalAmount
-        state.subTotal=(state.subTotal- (alteredItem.product.price*existingQuantity))+(alteredItem.product.price*(alteredItem.quantity));
-        state.totalAmount= (state.totalAmount- (alteredItem.product.price*existingQuantity))+(alteredItem.product.price*(alteredItem.quantity));
+        if (state.subTotal && state.totalAmount) {
+          // change subTotal & totalAmount
+          state.subTotal =
+            state.subTotal -
+            alteredItem.product.price * existingQuantity +
+            alteredItem.product.price * alteredItem.quantity;
+          state.totalAmount =
+            state.totalAmount -
+            alteredItem.product.price * existingQuantity +
+            alteredItem.product.price * alteredItem.quantity;
         }
-        
+
         let alteredIndex: number = state.cartItems.findIndex(
           (item) => item.product.itemId === action.payload.product.itemId
         );

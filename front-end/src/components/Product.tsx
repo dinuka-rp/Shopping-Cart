@@ -1,11 +1,12 @@
 import React from "react";
-import { Card, Button } from "antd";
+import { Card, Button, Space, Popover } from "antd";
 import {
   StarFilled,
   ShoppingOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { IProduct } from "../types/Product";
+import { Link } from "react-router-dom";
 
 interface Props {
   item: IProduct;
@@ -30,22 +31,32 @@ const Product: React.FC<Props> = ({ item, addItemToCart }: Props) => {
           <StarFilled style={{ fontSize: "1em", color: "#f4eb14" }} />
         </div>
         <div style={{ marginTop: "10px", textAlign: "center" }}>
-          <Button
-            type="primary"
-            shape="round"
-            icon={<ShoppingOutlined />}
-            onClick={addItemToCart}
-          >
-            Add to Cart
-          </Button>
-          <Button
-            type="default"
-            shape="circle"
-            icon={<ShoppingCartOutlined />}
-            onClick={addItemToCart}
-          >
-            {/* Buy Now */}
-          </Button>
+          <Space>
+            <Button
+              type="primary"
+              shape="round"
+              icon={<ShoppingOutlined />}
+              onClick={addItemToCart}
+            >
+              Add to Cart
+            </Button>
+            <Popover
+              content="Head over to checkout"
+              title="Buy Now"
+              placement="bottom"
+            >
+              <Link to="/cart">
+                <Button
+                  type="default"
+                  shape="circle"
+                  icon={<ShoppingCartOutlined />}
+                  onClick={addItemToCart}
+                >
+                  {/* Buy Now */}
+                </Button>
+              </Link>
+            </Popover>
+          </Space>
         </div>
       </Card>
     </div>

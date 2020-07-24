@@ -7,7 +7,7 @@ import { ReduxState } from "../store/reducers";
 // pass in this information from Home to Catalog (Information will be received from the backend)
 
 interface Props {
-  salesProducts?: [IProduct] | null;
+  salesProducts?: IProduct[] | null;
 }
 
 //  create the grid of products
@@ -19,7 +19,6 @@ const ProductGrid: React.FC<Props> = (props: Props) => {
     // add to redux state from here
 
     let cartItems = cart.cartItems;
-
     // filter cartItems[] by product and get the item with quantity(if it exists)
     let alteredItem = cartItems.find(
       (item: ICartItem) => item.product.itemId === product.itemId
