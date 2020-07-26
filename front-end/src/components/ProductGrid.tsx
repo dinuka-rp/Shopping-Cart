@@ -4,6 +4,7 @@ import { IProduct, ICartItem } from "../types/Product";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, alterQuantity } from "../store/actions/cartItemAction";
 import { ReduxState } from "../store/reducers";
+
 // pass in this information from Home to Catalog (Information will be received from the backend)
 
 interface Props {

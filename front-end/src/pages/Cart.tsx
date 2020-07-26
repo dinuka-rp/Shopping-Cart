@@ -62,9 +62,9 @@ const Cart: React.FC = () => {
 
   return (
     <>
-      {/* <section>display minicart in header</section> */}
+      {/* display minicart in header */}
       <HeaderArea />
-
+{/* break this into two components?? */}
       <Row>
         <Col xs={24} md={12} xl={16}>
           <ItemsSection>
@@ -74,8 +74,6 @@ const Cart: React.FC = () => {
                   <CartItem key={cartItem.product.itemId} item={cartItem} />
                 ))}
                 <div id={"clear"} onClick={clearAllItemsInCart}>
-                  {/* onclick -> reset state of CartReducer, remove save state from persist storage */}
-                  {/* https://stackoverflow.com/questions/35622588/how-to-reset-the-state-of-a-redux-store */}
                   clear cart
                 </div>
               </>

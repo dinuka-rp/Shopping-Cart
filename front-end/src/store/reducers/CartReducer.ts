@@ -67,7 +67,7 @@ const CartReducer = (state = initialCartState, action: any) => {
         state.cartItems[alteredIndex] = alteredItem; // replace the new item details in the state
       }
       return { ...state };
-    case "CLEAR_CART":
+    case "CLEAR_CART":    // clear entire cart (reset cart)
       state = initialCartState;
       return state;
     default:
@@ -76,5 +76,3 @@ const CartReducer = (state = initialCartState, action: any) => {
 };
 
 export default CartReducer;
-
-// buy now & checkout
