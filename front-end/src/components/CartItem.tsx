@@ -25,7 +25,7 @@ const Item = styled.div`
     transition: all 0.2s ease-in-out;
     &:hover {
       cursor: pointer;
-      transform: scale(1.2);
+      transform: scale(1.1);
     }
   }
 `;
@@ -50,7 +50,7 @@ const CartItem: React.FC<Props> = ({ item }: Props) => {
     <Item>
       {/* give hover effect to this section */}
       <Row>
-        <Col xs={12} md={8} lg={8} xl={8}>
+        <Col xs={12} md={8} lg={8} xl={6}>
           <img
             alt="sales-item"
             src={item.product.image}
@@ -70,16 +70,17 @@ const CartItem: React.FC<Props> = ({ item }: Props) => {
               onChange={onUpdateItemQuantity}
               style={{width:"60px"}}
             />
+            {' '}={' '}
           </span>
 
-          <div id="total">
+          <span id="total">
             $ {Math.round(item.product.price * item.quantity * 100) / 100}
           {/* round to 2 decimal places */}
-          </div>
+          </span>
         </Col>
         <Col xs={2} md={2} lg={2} xl={4}>
           <div id="delete" onClick={onRemoveItem}>
-            <DeleteTwoTone twoToneColor="red" style={{ fontSize: "18px" }} />
+            <DeleteTwoTone twoToneColor="#eb6565" style={{ fontSize: "18px" }} />
           </div>
         </Col>
       </Row>

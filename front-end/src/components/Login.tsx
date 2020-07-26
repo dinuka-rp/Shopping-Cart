@@ -1,9 +1,12 @@
 import React from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+// import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 
 const LoginForm = styled.div`
+  padding-top: 30%;
   .login-form {
     max-width: 300px;
   }
@@ -21,6 +24,12 @@ const LoginForm = styled.div`
 const Login = () => {
   const onFinish = (values: any) => {
     console.log("Success:", values);
+
+    if (values.username === "john" && values.password === "perera") {
+      message.success("Login Successful");
+    } else {
+      message.error("Login Unsuccessful");
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -30,7 +39,6 @@ const Login = () => {
   return (
     <LoginForm>
       Log in
-      
       <Form
         name="normal_login"
         className="login-form"
@@ -62,9 +70,9 @@ const Login = () => {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
-          {/* <a className="login-form-forgot" href="">
-            Forgot password
-          </a> */}
+          <Link to="/register">
+            <span className="login-form-forgot">Forgot password</span>
+          </Link>
         </Form.Item>
 
         <Form.Item>
@@ -75,7 +83,10 @@ const Login = () => {
           >
             Log in
           </Button>
-          {/* Or <a href="">register now!</a> */}
+
+          <div>
+            Or <Link to="register">register now!</Link>
+          </div>
         </Form.Item>
       </Form>
     </LoginForm>
