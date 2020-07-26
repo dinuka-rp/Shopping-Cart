@@ -1,5 +1,4 @@
 import { ICart } from "../../types/CartReducer";
-// import { CartItemsActionTypes } from "../../types/Actions";
 
 const initialCartState: ICart = {
   cartItems: [],
@@ -68,6 +67,9 @@ const CartReducer = (state = initialCartState, action: any) => {
         state.cartItems[alteredIndex] = alteredItem; // replace the new item details in the state
       }
       return { ...state };
+    case "CLEAR_CART":
+      state = initialCartState;
+      return state;
     default:
       return state;
   }

@@ -24,3 +24,11 @@ export const alterQuantity = (product: IProduct, quant: number) => {
     payload: { product: product, quantity: quant },
   };
 };
+
+// clear entire cart
+export const clearCart = () => {
+  return {
+    type: "CLEAR_CART",
+    // payload:{},
+  }
+};

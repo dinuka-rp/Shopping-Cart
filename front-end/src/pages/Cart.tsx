@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { ReduxState } from "../store/reducers";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CartItem from "../components/CartItem";
 import HeaderArea from "../components/Header";
 import styled from "styled-components";
 import { Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
+import { clearCart } from "../store/actions/cartItemAction";
 
 const ItemsSection = styled.div`
   max-height: 90vh;
@@ -16,7 +17,8 @@ const ItemsSection = styled.div`
     color: #bbb;
   }
   #clear {
-    text-align: right;
+    display: inline-block;
+    float: right;
     cursor: pointer;
     margin-right: 20px;
     color: #aaa;
@@ -25,6 +27,7 @@ const ItemsSection = styled.div`
     }
   }
 `;
+
 const TotalSection = styled.div`
   max-height: 90vh;
   border: 1px solid #ccc;
@@ -45,12 +48,17 @@ const TotalSection = styled.div`
 
 // this will show the shopping cart
 const Cart: React.FC = () => {
+  const dispatch = useDispatch(); // used to update redux store state
   let cart: any = useSelector((state: ReduxState) => state.cart); // get entire cart object saved in Redux state
   const [cartItems, setCartItems] = useState(cart.cartItems);
 
   useEffect(() => {
     setCartItems(cart.cartItems);
   }, [cart.cartItems]);
+
+  const clearAllItemsInCart = () => {
+    dispatch(clearCart());
+  };
 
   return (
     <>
@@ -65,14 +73,14 @@ const Cart: React.FC = () => {
                 {cartItems.map((cartItem: any) => (
                   <CartItem key={cartItem.product.itemId} item={cartItem} />
                 ))}
-                <div id={"clear"}>clear cart</div>
+                <div id={"clear"} onClick={clearAllItemsInCart}>
+                  {/* onclick -> reset state of CartReducer, remove save state from persist storage */}
+                  {/* https://stackoverflow.com/questions/35622588/how-to-reset-the-state-of-a-redux-store */}
+                  clear cart
+                </div>
               </>
             ) : (
-              <div className={"noItems"}>
-                {/* onclick -> reset state of CartReducer, remove save state from persist storage */}
-                {/* https://stackoverflow.com/questions/35622588/how-to-reset-the-state-of-a-redux-store */}
-                No Items in Cart
-                </div>
+              <div className={"noItems"}>No Items in Cart</div>
             )}
           </ItemsSection>
         </Col>
