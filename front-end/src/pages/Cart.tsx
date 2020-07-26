@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import CartItem from "../components/CartItem";
 import HeaderArea from "../components/Header";
 import styled from "styled-components";
-import { Row, Col, Button } from "antd";
+import { Row, Col, Button, Popconfirm } from "antd";
 import { Link } from "react-router-dom";
 import { clearCart } from "../store/actions/cartItemAction";
 
@@ -63,8 +63,8 @@ const Cart: React.FC = () => {
   return (
     <>
       {/* display minicart in header */}
-      <HeaderArea />
-{/* break this into two components?? */}
+      <HeaderArea chosenTab="3" />
+      {/* break this into two components?? */}
       <Row>
         <Col xs={24} md={12} xl={16}>
           <ItemsSection>
@@ -73,9 +73,15 @@ const Cart: React.FC = () => {
                 {cartItems.map((cartItem: any) => (
                   <CartItem key={cartItem.product.itemId} item={cartItem} />
                 ))}
-                <div id={"clear"} onClick={clearAllItemsInCart}>
-                  clear cart
-                </div>
+                <Popconfirm
+                  title="Are you sure that you want to clear the entire cart?"
+                  onConfirm={clearAllItemsInCart}
+                  // onCancel={cancel}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <div id={"clear"}>clear cart</div>
+                </Popconfirm>
               </>
             ) : (
               <div className={"noItems"}>No Items in Cart</div>

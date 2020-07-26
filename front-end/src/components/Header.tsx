@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 interface Props {
   search?: (searchTerm: string) => void;
+  chosenTab: string;      // used to display the selected tab in light blue
 }
 
 const HeadArea = styled.div`
@@ -18,7 +19,7 @@ const HeadArea = styled.div`
 const { Search } = Input;
 const { Header, Content } = Layout;
 
-const HeaderArea: React.FC<Props> = ({ search }: Props) => {
+const HeaderArea: React.FC<Props> = ({ search, chosenTab }: Props) => {
   return (
     <HeadArea>
       <Layout className="layout">
@@ -27,7 +28,7 @@ const HeaderArea: React.FC<Props> = ({ search }: Props) => {
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={["1"]}           // pass this in from parent component
+            defaultSelectedKeys={[chosenTab]} // pass this in from parent component
             style={{ display: "flex" }}
           >
             <Menu.Item key="1">

@@ -9,10 +9,10 @@ const Home: React.FC = () => {
   const [searchResults, setSearchResults] = useState<IProduct[]>();
 
   const search = (searchTerm: string) => {
-      const results = allProducts?.filter((salesitem: IProduct) =>
-        salesitem.title.toLowerCase().includes(searchTerm.trim())
-      );
-      setSearchResults(results);
+    const results = allProducts?.filter((salesitem: IProduct) =>
+      salesitem.title.toLowerCase().includes(searchTerm.trim())
+    );
+    setSearchResults(results);
   };
 
   useEffect(() => {
@@ -24,8 +24,8 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <HeaderArea search={search} />
-      
+      <HeaderArea search={search} chosenTab="1" />
+
       <ProductGrid salesProducts={searchResults} />
     </>
   );

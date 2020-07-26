@@ -13,10 +13,10 @@ const ProfileForm = styled.div`
 const Profile: React.FC = () => {
   return (
     <>
-      <HeaderArea />
+      <HeaderArea chosenTab="2" />
       {/* can keep this if user is allowed to login after adding items into the cart and resume shopping */}
       <ProfileForm>
-         {/* let user toggle between Login and Register here? */}
+        {/* let user toggle between Login and Register here?/ Display user profile here */}
 
         <Login />
       </ProfileForm>
