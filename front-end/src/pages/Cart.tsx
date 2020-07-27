@@ -6,7 +6,7 @@ import HeaderArea from "../components/Header";
 import styled from "styled-components";
 import { Row, Col, Button, Popconfirm } from "antd";
 import { Link } from "react-router-dom";
-import { clearCart } from "../store/actions/cartItemAction";
+import { clearCart } from "../store/actions/CartItemAction";
 
 const ItemsSection = styled.div`
   max-height: 90vh;

@@ -2,7 +2,7 @@ import React from "react";
 import { InputNumber, Col } from "antd";
 import { ICartItem } from "../types/Product";
 import { useDispatch } from "react-redux";
-import { alterQuantity, removeItem } from "../store/actions/cartItemAction";
+import { alterQuantity, removeItem } from "../store/actions/CartItemAction";
 import { DeleteTwoTone } from "@ant-design/icons";
 import styled from "styled-components";
 import { Row } from "antd";
