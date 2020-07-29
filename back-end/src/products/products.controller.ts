@@ -39,7 +39,10 @@ export class ProductsController {
 
   @Post()
   async storeProduct(@Body() createProductDto: CreateProductDto) {
-      // will this dto work? id and rating won't be sent from the frontend?
+    // will this dto work? id and rating won't be sent from the frontend?
     return this.productsService.storeProduct(createProductDto);
   }
+
+  // rate product
+  //   @Post()
 }
