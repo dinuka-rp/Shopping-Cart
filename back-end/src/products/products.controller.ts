@@ -1,13 +1,22 @@
-import { Controller, Param, Get, Delete, Post, Put } from '@nestjs/common';
+import {
+  Controller,
+  Param,
+  Get,
+  Delete,
+  Post,
+  Put,
+  Body,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
+import { CreateProductDto } from './dto/create-product.dto';
 
 @Controller('products')
 export class ProductsController {
-  // constructor(private readonly productsService: ProductsService) {}
+  constructor(private readonly productsService: ProductsService) {}
 
   @Get()
   getProducts(): string {
-    return 'All Products';
+    return this.productsService.getProducts();
   }
 
   @Get(':id')
@@ -29,7 +38,8 @@ export class ProductsController {
   }
 
   @Post()
-  storeProduct(): string {
-    return `This action stores a new product`;
+  async storeProduct(@Body() createProductDto: CreateProductDto) {
+      // will this dto work? id and rating won't be sent from the frontend?
+    return this.productsService.storeProduct(createProductDto);
   }
 }
