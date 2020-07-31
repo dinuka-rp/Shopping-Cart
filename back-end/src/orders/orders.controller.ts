@@ -6,8 +6,9 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   // place order
-//   @Post()
-//   async placeOrder(@Body() createOrderDto: CreateOrderDto) {
-//     return this.ordersService.placeOrder(createOrderDto);
-//   }
+  // jwt Auth headers
+  //   @Post()
+  //   async placeOrder(@Body() createOrderDto: CreateOrderDto) {
+  //     return this.ordersService.placeOrder(createOrderDto);
+  //   }
 }

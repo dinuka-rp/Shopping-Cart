@@ -5,8 +5,8 @@ import { Product } from './interfaces/Product.interface';
 export class ProductsService {
   private readonly products: Product[] = [];
 
-  getProducts(): string {
-    return 'All Products';
+  getProducts(): Product[] {
+    return this.products;
   }
 
   //   getProductById(): string {
