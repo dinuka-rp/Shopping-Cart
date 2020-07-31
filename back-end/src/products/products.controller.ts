@@ -50,9 +50,15 @@ export class ProductsController {
   }
 
   // rate product
-  // body should contain {userId, productId, user_rating}+ jwt Auth headers
-  @Post()
-  rateProduct() {
-    return this.productsService.rateProduct();
+  // + jwt Auth headers
+  @Post(':id/rate/:rate')
+  rateProduct(
+    @Param('id') itemId: number,
+    @Param('rate') rate: number,
+    @Body() userId: string,
+  ) {
+    return this.productsService.rateProduct(itemId, rate, userId);
   }
+
+  // Patch/ Put to alter given rating by user
 }

@@ -89,5 +89,7 @@ export class ProductsService {
     this.products.push(newProduct);
   }
 
-  rateProduct() {}
+  rateProduct(itemId: number, rate: number, userId: string) {
+
+  }
 }
