@@ -5,15 +5,33 @@ import {
   rateProductEndpoint,
 } from "../endpoints";
 
+// Add a request interceptor
+axios.interceptors.request.use(
+  function (config) {
+    // Do something before request is sent
+
+    // is this ok   >>>??
+    config.headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    };
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
+
 // methods for user purchasing & rating of products
 
 // Get all items available in the shop
 export async function retrieveProducts() {
   const res = await axios.get(getProductsEndpoint, {
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
+    // headers: {
+    //   "Content-Type": "application/json",
+    //   "Access-Control-Allow-Origin": "*",
+    // },
   });
 
   return res.data;
@@ -32,8 +50,8 @@ export async function rateProduct(itemId: string, rating: number) {
       {
         headers: {
           "x-access-token": token,
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          // "Content-Type": "application/json",
+          // "Access-Control-Allow-Origin": "*",
         },
       }
     );
@@ -43,8 +61,6 @@ export async function rateProduct(itemId: string, rating: number) {
     console.log("token not found");
   }
 }
-
-
 
 // Order items by a user
 export async function orderItems(title: string) {
@@ -60,8 +76,8 @@ export async function orderItems(title: string) {
     const res = await axios.post(orderItemsEndpoint, postBody, {
       headers: {
         "x-access-token": token,
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        // "Content-Type": "application/json",
+        // "Access-Control-Allow-Origin": "*",
       },
     });
 

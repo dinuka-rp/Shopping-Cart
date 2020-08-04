@@ -9,7 +9,7 @@ const initialCartState: ICart = {
   otherChargesForPaymentMethod: 0,
   totalAmount: 0,
 
-  // userId?: string;
+  // userId?: "";
 };
 
 const CartReducer = (state = initialCartState, action: any) => {
