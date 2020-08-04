@@ -5,42 +5,42 @@ import { Product, CreateProduct } from './interfaces/Product.interface';
 export class ProductsService {
   private readonly products: Product[] = [
     {
-      itemId: 1,
+      itemId: '1',
       image: 'http://placehold.it/32x32',
       title: 'Zanilla',
       price: 2580.1,
       rating: 5,
     },
     {
-      itemId: 2,
+      itemId: '2',
       image: 'http://placehold.it/32x32',
       title: 'Xoggle',
       price: 1197.3,
       rating: 3,
     },
     {
-      itemId: 3,
+      itemId: '3',
       image: 'http://placehold.it/32x32',
       title: 'Zaphire',
       price: 3591.57,
       rating: 1,
     },
     {
-      itemId: 4,
+      itemId: '4',
       image: 'http://placehold.it/32x32',
       title: 'Prowaste',
       price: 3581.3,
       rating: 1,
     },
     {
-      itemId: 5,
+      itemId: '5',
       image: 'http://placehold.it/32x32',
       title: 'Marvane',
       price: 2628.82,
       rating: 1,
     },
     {
-      itemId: 6,
+      itemId: '6',
       image: 'http://placehold.it/32x32',
       title: 'Cofine',
       price: 2580.86,
@@ -52,14 +52,9 @@ export class ProductsService {
     return this.products;
   }
 
-  getProductById(itemId: number): Product {
-    console.log(itemId);
-    // let product: Product = this.products?.find((item: Product) => {
-    //   item.itemId === itemId;
-    // });
-    // console.log(product);
+  getProductById(itemId: string): Product {
     return this.products?.find((item: Product) => {
-      item.itemId === itemId;
+      return item.itemId === itemId;
     });
   }
 
@@ -68,9 +63,9 @@ export class ProductsService {
   }
 
   // this needs to be tested ---- >>>
-  updateProduct(id: number, updatedProduct: Product) {
+  updateProduct(id: string, updatedProduct: Product) {
     let productIndex: number = this.products?.findIndex((item: Product) => {
-      item.itemId === id;
+      return item.itemId === id;
     });
 
     this.products[productIndex] = updatedProduct;
@@ -89,7 +84,5 @@ export class ProductsService {
     this.products.push(newProduct);
   }
 
-  rateProduct(itemId: number, rate: number, userId: string) {
-
-  }
+  rateProduct(itemId: number, rate: number, userId: string) {}
 }

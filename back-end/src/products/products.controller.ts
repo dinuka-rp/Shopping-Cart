@@ -22,8 +22,7 @@ export class ProductsController {
   }
 
   @Get(':id')
-  getProductById(@Param() params): Product {
-    // console.log(params.id);
+  async getProductById(@Param() params): Promise<Product> {
     return this.productsService.getProductById(params.id);
   }
 
@@ -37,7 +36,7 @@ export class ProductsController {
   @Put(':id')
   async updateProduct(
     // This action updates the #${id}nd product
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
   ) {
     return this.productsService.updateProduct(id, updateProductDto);
