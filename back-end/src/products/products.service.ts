@@ -3,7 +3,7 @@ import { Product, CreateProduct } from './interfaces/Product.interface';
 
 @Injectable()
 export class ProductsService {
-  private readonly products: Product[] = [
+  private products: Product[] = [
     {
       itemId: '1',
       image: 'http://placehold.it/32x32',
@@ -52,36 +52,44 @@ export class ProductsService {
     return this.products;
   }
 
-  getProductById(itemId: string): Product {
+  getProductById(id: string): Product {
     return this.products?.find((item: Product) => {
-      return item.itemId === itemId;
+      return item.itemId === id;
     });
   }
 
-  deleteProductById(id: number): string {
+  deleteProductById(id: string): string {
+    const productToBeDeleted = this.products?.find((item: Product) => {
+      return item.itemId === id;
+    });
+    this.products = this.products?.filter((item: Product) => {
+      return item !== productToBeDeleted;
+    });
+
     return `The #${id}nd product was deleted from the database`;
   }
 
-  // this needs to be tested ---- >>>
-  updateProduct(id: string, updatedProduct: Product) {
+  updateProduct(id: string, updatedProduct: Product): string {
     let productIndex: number = this.products?.findIndex((item: Product) => {
       return item.itemId === id;
     });
 
     this.products[productIndex] = updatedProduct;
+    return `The #${id}nd product was updated in the database`;
   }
 
-  // this needs to be tested ---- >>>
-  storeProduct(product: CreateProduct) {
-    const newProductId = this.products[this.products.length - 1].itemId;
+  storeProduct(product: CreateProduct): string {
+    const lastProductId = this.products[this.products.length - 1].itemId;
+    const newItemId = parseInt(lastProductId) + 1;
 
     const newProduct: Product = {
       ...product,
-      itemId: newProductId + 1,
+      itemId: newItemId.toString(),
       rating: 0,
     };
 
     this.products.push(newProduct);
+    return `The new product was added to the database`;
   }
 
   rateProduct(itemId: number, rate: number, userId: string) {}
