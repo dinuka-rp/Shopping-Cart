@@ -1,5 +1,5 @@
 // product in store
-export interface Product {
+export interface IProduct {
   itemId: string;               // change this to number in frontend --------- >>>>>>>>
   image?: string | undefined;
   title: string;

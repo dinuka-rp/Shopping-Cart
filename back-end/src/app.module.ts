@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
+import { Product } from './products/products.entity';
+import { Order } from './orders/orders.entity';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { User } from './users/user.entity';
       username: 'root',
       password: '',
       database: 'shopping-cart-zone',
-      entities: [User],
+      entities: [User, Product, Order],
       synchronize: true,
     }),
   ],

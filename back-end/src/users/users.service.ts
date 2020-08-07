@@ -25,9 +25,11 @@ export class UsersService {
     });
   }
 
-  async remove(id: string): Promise<void> {
-    await this.usersRepository.delete(id);
-  }
+  // async remove(id: string): Promise<void> {
+  //   await this.usersRepository.delete(id);
+  // }
+
+  // -----------------------------------------------------
 
   // private readonly users: User[];
 

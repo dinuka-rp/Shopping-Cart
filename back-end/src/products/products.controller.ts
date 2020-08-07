@@ -11,8 +11,8 @@ import {
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { Product } from './interfaces/Product.interface';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { Product } from './products.entity';
 
 @Controller('products')
 export class ProductsController {
@@ -29,13 +29,13 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  deleteProductById(@Param() params): string {
+  deleteProductById(@Param() params) : Promise<string>{
     return this.productsService.deleteProductById(params.id);
   }
 
   // body should contain a product
   @Put(':id')
-  async updateProduct(
+  async updateProduct (
     // This action updates the #${id}nd product
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
