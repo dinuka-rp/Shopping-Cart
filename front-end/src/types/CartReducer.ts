@@ -5,12 +5,12 @@ import { ICartItem } from "./Product";
 
 export interface ICart {
   cartItems: ICartItem[];
-  subTotal?: number;
-  discount?: number;
-  deliveryCharges?: number;
-  otherCharges?: number;
-  otherChargesForPaymentMethod?: number;
-  totalAmount?: number;
+  subTotal: number;
+  discount: number;
+  deliveryCharges: number;
+  otherCharges: number;
+  otherChargesForPaymentMethod: number;
+  totalAmount: number;
 
   // userId?: string;
   // createdDate: Date;

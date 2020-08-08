@@ -1,4 +1,5 @@
 import { ICart } from "../../types/CartReducer";
+import { ICartItem } from "../../types/Product";
 
 const initialCartState: ICart = {
   cartItems: [],
@@ -12,64 +13,78 @@ const initialCartState: ICart = {
   // userId?: "";
 };
 
+function calculateSubTotal(cartItems: ICartItem[]) {
+  return cartItems.reduce((sum: number, item: ICartItem) => {
+    return sum + item.quantity * item.product.price;
+  }, 0);
+}
+
+function calculateTotalAmount(cart: ICart) {
+  return (
+    cart.deliveryCharges +
+    cart.otherCharges +
+    cart.otherChargesForPaymentMethod +
+    cart.subTotal -
+    cart.discount
+  );
+}
+
 const CartReducer = (state = initialCartState, action: any) => {
   // action.payload gives the cart item to be added/ deleted/ decrease quantity
   switch (action.type) {
     case "ADD_ITEM": // add item
-      state.subTotal = state.subTotal + action.payload.product.price;
-      state.totalAmount = state.totalAmount + action.payload.product.price;
-      return { ...state, cartItems: [...state.cartItems, action.payload] };
+      state.cartItems = [...state.cartItems, action.payload];
+
+      state.subTotal = calculateSubTotal(state.cartItems);
+      state.totalAmount = calculateTotalAmount(state);
+      return { ...state };
+
     case "REMOVE_ITEM": // remove item
       // find item in cartItems[]
       let itemToBeRemoved = state.cartItems.find(
         (item) => item.product.itemId === action.payload.itemId
       );
 
-      if (itemToBeRemoved && state.subTotal && state.totalAmount) {
-        // reduce price from total
-        state.subTotal =
-          state.subTotal -
-          itemToBeRemoved.product.price * itemToBeRemoved.quantity;
-        state.totalAmount =
-          state.totalAmount -
-          itemToBeRemoved.product.price * itemToBeRemoved.quantity;
-      }
       //remove item
       let newCartItems = state.cartItems.filter(
         (item) => item !== itemToBeRemoved
       );
+
+
       state.cartItems = newCartItems;
+
+      // if (state.subTotal && state.totalAmount) {
+        state.subTotal = calculateSubTotal(state.cartItems);
+        state.totalAmount = calculateTotalAmount(state);
+      // }
+
       return { ...state };
+
     case "ALTER_QUANTITY": // alter quantity of an item
       let alteredItem = state.cartItems.find(
         (item) => item.product.itemId === action.payload.product.itemId
       );
       if (alteredItem) {
         // if the item exists in the cart
-        let existingQuantity: number = alteredItem.quantity;
-        alteredItem.quantity = action.payload.quantity;
 
-        if (state.subTotal && state.totalAmount) {
-          // change subTotal & totalAmount
-          state.subTotal =
-            state.subTotal -
-            alteredItem.product.price * existingQuantity +
-            alteredItem.product.price * alteredItem.quantity;
-          state.totalAmount =
-            state.totalAmount -
-            alteredItem.product.price * existingQuantity +
-            alteredItem.product.price * alteredItem.quantity;
-        }
+        alteredItem.quantity = action.payload.quantity;
 
         let alteredIndex: number = state.cartItems.findIndex(
           (item) => item.product.itemId === action.payload.product.itemId
         );
         state.cartItems[alteredIndex] = alteredItem; // replace the new item details in the state
+
+        // if (state.subTotal && state.totalAmount) {
+          state.subTotal = calculateSubTotal(state.cartItems);
+          state.totalAmount = calculateTotalAmount(state);
+        // }
       }
       return { ...state };
-    case "CLEAR_CART":    // clear entire cart (reset cart)
+
+    case "CLEAR_CART": // clear entire cart (reset cart)
       state = initialCartState;
       return state;
+      
     default:
       return state;
   }
