@@ -7,7 +7,7 @@ export const getProductsEndpoint = `https://run.mocky.io/v3/7a5b07b3-948a-49d0-9
 
 
 // post endpoints
-export const loginUserEndpoint = `${shopBackend}login`;          // login user
+export const loginUserEndpoint = `${shopBackend}auth/login`;          // login user
 export const registerUserEndpoint = `${shopBackend}register`;          // Register new user
 
 export const orderItemsEndpoint = `${shopBackend}orders`;          // order items by a user

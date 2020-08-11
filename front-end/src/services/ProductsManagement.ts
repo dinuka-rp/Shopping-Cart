@@ -4,6 +4,7 @@ import {
   orderItemsEndpoint,
   rateProductEndpoint,
 } from "../endpoints";
+import { store } from "../index";
 
 // Add a request interceptor
 axios.interceptors.request.use(
@@ -15,6 +16,11 @@ axios.interceptors.request.use(
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     };
+
+    let reduxState: any = store.getState();
+    let token = reduxState.user.token;
+    config.headers.token = { token };
+
     return config;
   },
   function (error) {
@@ -23,16 +29,12 @@ axios.interceptors.request.use(
   }
 );
 
+// ---------------
 // methods for user purchasing & rating of products
 
 // Get all items available in the shop
 export async function retrieveProducts() {
-  const res = await axios.get(getProductsEndpoint, {
-    // headers: {
-    //   "Content-Type": "application/json",
-    //   "Access-Control-Allow-Origin": "*",
-    // },
-  });
+  const res = await axios.get(getProductsEndpoint, {});
 
   return res.data;
 }
@@ -41,19 +43,12 @@ export async function retrieveProducts() {
 
 // Rate products by a user
 export async function rateProduct(itemId: string, rating: number) {
-  let token: string | null;
-  if (localStorage.getItem("token") != null) {
-    token = localStorage.getItem("token");
-
+  let reduxState: any = store.getState();
+  let token = reduxState.user.token;
+  if (token != null) {
     const res = await axios.post(
       rateProductEndpoint + `:${itemId}/rate/:${rating}`,
-      {
-        headers: {
-          "x-access-token": token,
-          // "Content-Type": "application/json",
-          // "Access-Control-Allow-Origin": "*",
-        },
-      }
+      {}
     );
 
     return res;
@@ -69,17 +64,10 @@ export async function orderItems(title: string) {
     // more details ned to be entered here ------------->>>>>
   };
 
-  let token: string | null;
-  if (localStorage.getItem("token") != null) {
-    token = localStorage.getItem("token");
-
-    const res = await axios.post(orderItemsEndpoint, postBody, {
-      headers: {
-        "x-access-token": token,
-        // "Content-Type": "application/json",
-        // "Access-Control-Allow-Origin": "*",
-      },
-    });
+  let reduxState: any = store.getState();
+  let token = reduxState.user.token;
+  if (token != null) {
+    const res = await axios.post(orderItemsEndpoint, postBody, {});
 
     return res;
   } else {

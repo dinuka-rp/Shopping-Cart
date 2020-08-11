@@ -1,9 +1,21 @@
-import { IUser } from "../../types/User";
+// import { IUser } from "../../types/User";
 
-export const login = (user: IUser) => {
+export const loginRequest = () => {
   return {
-    type: "LOGIN",
-    payload: user,
+    type: "LOGIN_REQUEST",
+  };
+};
+
+export const loginSuccess = (username: string, token: string) => {
+  return {
+    type: "LOGIN_SUCCESS",
+    payload: { username: username, token: token },
+  };
+};
+
+export const loginFailure = () => {
+  return {
+    type: "LOGIN_FAIURE",
   };
 };
 

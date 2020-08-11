@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import styled from "styled-components";
+import { loginUser } from "../services/AuthManagement";
 
 const LoginForm = styled.div`
   padding-top: 30%;
@@ -23,17 +24,12 @@ const LoginForm = styled.div`
 
 const Login = () => {
   const onFinish = (values: any) => {
-    console.log("Success:", values);
-
-    if (values.username === "john" && values.password === "perera") {
-      message.success("Login Successful");
-    } else {
-      message.error("Login Unsuccessful");
-    }
+    loginUser(values.username, values.password);
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
+    message.error("Login Failed");
   };
 
   return (
@@ -70,9 +66,9 @@ const Login = () => {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
-          <Link to="/register">
-            <span className="login-form-forgot">Forgot password</span>
-          </Link>
+          {/* <Link to="/register"> */}
+          <span className="login-form-forgot">Forgot password</span>
+          {/* </Link> */}
         </Form.Item>
 
         <Form.Item>

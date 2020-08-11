@@ -35,7 +35,9 @@ export class ProductsService {
     return `The new product was added to the database`;
   }
 
-  rateProduct(itemId: number, rate: number, userId: string) {}
+  async rateProduct(itemId: number, rate: number, userId: string): Promise<string> {
+    return `${rate} was given as the rating to ${itemId} by ${userId}`;
+  }
 
   // relationship used for Rating table
   @ManyToMany(type => User)

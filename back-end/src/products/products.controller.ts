@@ -58,7 +58,7 @@ export class ProductsController {
     @Param('id') itemId: number,
     @Param('rate') rate: number,
     @Body() userId: string,
-  ) {
+  ): Promise<string>  {
     return this.productsService.rateProduct(itemId, rate, userId);
   }
 

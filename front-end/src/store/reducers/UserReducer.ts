@@ -1,18 +1,34 @@
 import { IUser } from "../../types/User";
 
-const initialCartState: IUser = {
-  userId: "",
-  username: "",
-  token: "",
+const initialUserState: IUser = {
+  username: null,
+  token: null,
+  isLoading: false,
 };
 
-const UserReducer = (state = initialCartState, action: any) => {
+const UserReducer = (state = initialUserState, action: any) => {
   switch (action.type) {
-    case "LOGIN":
-      return action.payload; // save user details
+    case "LOGIN_REQUEST":
+      // display loading status
+      state.isLoading = true;
+      return { ...state };
+
+    case "LOGIN_SUCCESS":
+      // save user details
+      state.isLoading = false;
+      state.username = action.payload.username;
+      state.token = action.payload.token;
+      return { ...state };
+
+    case "LOGIN_FAILURE":
+      state.isLoading = false;
+      return { ...state };
+
     case "LOGOUT":
-      state = initialCartState;
-      return state; // delete user details
+      // delete user details
+      state = initialUserState;
+      return state;
+
     default:
       return state;
   }
