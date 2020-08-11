@@ -1,6 +1,6 @@
 // product in store
 export interface IProduct {
-  itemId: string;               // change this to number in frontend --------- >>>>>>>>
+  itemId: string;
   image?: string | undefined;
   title: string;
   price: number;

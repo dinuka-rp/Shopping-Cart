@@ -1,5 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { IProduct } from 'src/products/interfaces/Product.interface';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+import { ICartItem } from './interfaces/order.interface';
+import { User } from 'src/users/user.entity';
 
 @Entity()
 export class Order {
@@ -16,5 +23,10 @@ export class Order {
   totalPrice: number;
 
   @Column({ type: 'json' })
-  cartDetails: IProduct[];
+  cartDetails: ICartItem[];
+
+  // order-user relationship
+  @ManyToMany(type => User)
+  @JoinTable()
+  users: User[];
 }

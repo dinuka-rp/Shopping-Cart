@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './orders.entity';
 import { Repository } from 'typeorm';
 
+
 @Injectable()
 export class OrdersService {
   constructor(
@@ -12,6 +13,8 @@ export class OrdersService {
   ) {}
 
   async placeOrder(order: IOrder): Promise<string> {
+
+
     await this.ordersRepository.insert(order);
 
     return `The new order was recorded in the database`;

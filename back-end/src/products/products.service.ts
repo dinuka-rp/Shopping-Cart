@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { IProduct, CreateProduct } from './interfaces/Product.interface';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, ManyToMany, JoinTable } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Product } from './products.entity';
-import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class ProductsService {
@@ -35,14 +34,16 @@ export class ProductsService {
     return `The new product was added to the database`;
   }
 
-  async rateProduct(itemId: number, rate: number, userId: string): Promise<string> {
+  async rateProduct(
+    itemId: number,
+    rate: number,
+    userId: string,
+  ): Promise<string> {
+    
     return `${rate} was given as the rating to ${itemId} by ${userId}`;
   }
 
-  // relationship used for Rating table
-  @ManyToMany(type => User)
-  @JoinTable()
-  users: User[];
+
 
   // -----------------------------------------------------
 

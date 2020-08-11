@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, OneToMany, JoinTable } from 'typeorm';
 import { User } from './user.entity';
+import { UserProductRating } from 'src/link-enitities/rating.entity';
 
 // export type User = any;
 
@@ -28,6 +29,7 @@ export class UsersService {
   // async remove(id: string): Promise<void> {
   //   await this.usersRepository.delete(id);
   // }
+
 
   // -----------------------------------------------------
 
