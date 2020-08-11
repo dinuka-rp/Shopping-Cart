@@ -16,14 +16,14 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 // let cartName = `cart_${cartUser}`;
 let cartName = `cart_guest`;
 
-const cartPersistConfig = {
+const persistConfig = {
   key: cartName,
   storage,
 };
-const persReducer:any = persistReducer(cartPersistConfig,rootReducer);
+const persReducer:any = persistReducer(persistConfig,rootReducer);
 
 // initialize redux store
-const store = createStore(
+export const store = createStore(
   persReducer,
   (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
     (window as any).__REDUX_DEVTOOLS_EXTENSION__() // redux devtools chrome extension
