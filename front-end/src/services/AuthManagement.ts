@@ -36,3 +36,35 @@ export async function loginUser(username: string, password: string) {
   //   // always executed
   // })
 }
+
+// register user
+// -- endpoint needs to be created in the backend
+export async function registerUser(
+  username: string,
+  password: string,
+  email: string,
+  mobileNum: string
+) {
+
+  let postBody = {
+    username: username,
+    password: password,
+    email: email,
+    mobileNum: mobileNum,
+  };
+
+  await axios
+    .post(registerUserEndpoint, postBody, {})
+    .then((response) => {
+      message.success("Account Creation Successful");
+      // token will be received. dispatch to Redux store
+      store.dispatch(loginSuccess(username, response.data.access_token));
+      //   window.location.href = "/";
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  // .then(() => {
+  //   // always executed
+  // })
+}

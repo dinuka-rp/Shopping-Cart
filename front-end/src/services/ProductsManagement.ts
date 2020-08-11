@@ -1,9 +1,5 @@
 import axios from "axios";
-import {
-  getProductsEndpoint,
-  orderItemsEndpoint,
-  rateProductEndpoint,
-} from "../endpoints";
+import { productsEndpoint, orderItemsEndpoint } from "../endpoints";
 import { store } from "../index";
 
 // Add a request interceptor
@@ -11,7 +7,6 @@ axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
 
-    // is this ok   >>>??
     config.headers = {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
@@ -34,7 +29,7 @@ axios.interceptors.request.use(
 
 // Get all items available in the shop
 export async function retrieveProducts() {
-  const res = await axios.get(getProductsEndpoint, {});
+  const res = await axios.get(productsEndpoint, {});
 
   return res.data;
 }
@@ -47,7 +42,7 @@ export async function rateProduct(itemId: string, rating: number) {
   let token = reduxState.user.token;
   if (token != null) {
     const res = await axios.post(
-      rateProductEndpoint + `:${itemId}/rate/:${rating}`,
+      productsEndpoint + `:${itemId}/rate/:${rating}`,
       {}
     );
 
@@ -57,11 +52,20 @@ export async function rateProduct(itemId: string, rating: number) {
   }
 }
 
+// Patch request to alter rating ---------->>>>>
+
 // Order items by a user
-export async function orderItems(title: string) {
+export async function orderItems(
+  discount: number,
+  delivery: number,
+  totalPrice: number,
+  cartDetails: JSON // (ICartItem - (image + rating))
+) {
   let postBody = {
-    title: title,
-    // more details ned to be entered here ------------->>>>>
+    discount: discount,
+    delivery: delivery,
+    totalPrice: totalPrice,
+    cartDetails: cartDetails,
   };
 
   let reduxState: any = store.getState();
