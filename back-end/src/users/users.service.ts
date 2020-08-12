@@ -2,8 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, OneToMany, JoinTable } from 'typeorm';
 import { User } from './user.entity';
-import { UserProductRating } from 'src/link-enitities/rating.entity';
-
 // export type User = any;
 
 @Injectable()
