@@ -13,3 +13,9 @@ export interface CreateProduct {
   title: string;
   price: number;
 }
+// rate product
+export interface IRateProduct {
+  productId: string;
+  userId: string;
+  rating: number;
+}

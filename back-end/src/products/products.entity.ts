@@ -29,8 +29,6 @@ export class Product {
   rating: number;
 
   // relationship used for Rating table
-  // have this in products entity
-
   @OneToMany(
     type => UserProductRating,
     userProductRating => userProductRating.product,

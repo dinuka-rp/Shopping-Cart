@@ -1,14 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { IProduct, CreateProduct } from './interfaces/Product.interface';
+import { IProduct, CreateProduct, IRateProduct } from './interfaces/Product.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './products.entity';
+import { UserProductRating } from 'src/link-enitities/rating.entity';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private productsRepository: Repository<Product>,
+
+    @InjectRepository(UserProductRating)
+    private ratingRepository: Repository<UserProductRating>,
   ) {}
 
   getProducts(): Promise<Product[]> {
@@ -34,16 +38,15 @@ export class ProductsService {
     return `The new product was added to the database`;
   }
 
-  async rateProduct(
-    itemId: number,
-    rate: number,
-    userId: string,
-  ): Promise<string> {
-    
-    return `${rate} was given as the rating to ${itemId} by ${userId}`;
+  async rateProduct(rating: IRateProduct): Promise<string> {
+    // add record to rating entity
+    await this.ratingRepository.insert(rating);
+
+    // update rating from product side using itemId, rating
+    // this.productsRepository.update()
+
+    return `${rating.rating} was given as the rating to product:${rating.productId} by user:${rating.userId}`;
   }
-
-
 
   // -----------------------------------------------------
 

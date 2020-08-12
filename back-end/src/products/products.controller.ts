@@ -7,12 +7,14 @@ import {
   Put,
   Body,
   UseGuards,
+  Request
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { Product } from './products.entity';
+import { RateProductDto } from './dto/rate-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -29,13 +31,13 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  deleteProductById(@Param() params) : Promise<string>{
+  deleteProductById(@Param() params): Promise<string> {
     return this.productsService.deleteProductById(params.id);
   }
 
   // body should contain a product
   @Put(':id')
-  async updateProduct (
+  async updateProduct(
     // This action updates the #${id}nd product
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
@@ -55,11 +57,20 @@ export class ProductsController {
   @UseGuards(JwtAuthGuard)
   @Post(':id/rate/:rate')
   rateProduct(
-    @Param('id') itemId: number,
+    @Param('id') itemId: string,
     @Param('rate') rate: number,
-    @Body() userId: string,
-  ): Promise<string>  {
-    return this.productsService.rateProduct(itemId, rate, userId);
+    @Request() req:any,
+  ): Promise<string> {
+    // get userId from token
+    const userId:string = req.user.userId;
+
+    const rating: RateProductDto = {
+      productId: itemId,
+      userId: userId,
+      rating: rate,
+    };
+
+    return this.productsService.rateProduct(rating);
   }
 
   // Patch/ Put to alter given rating by user

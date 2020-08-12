@@ -10,9 +10,11 @@ import { UserProductRating } from 'src/link-enitities/rating.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: string;
+  userId: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   username: string;
 
   @Column({ nullable: true })
@@ -25,7 +27,6 @@ export class User {
   mobileNum: string;
 
   // relationship used for Rating table
-  // have this in users entity
 
   @OneToMany(
     type => UserProductRating,
