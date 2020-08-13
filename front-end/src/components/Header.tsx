@@ -70,7 +70,7 @@ const HeaderArea: React.FC<Props> = ({ search, chosenTab }: Props) => {
               {token == null ? (
                 <Link to="/profile">Login</Link>
               ) : (
-                <div onClick={() => dispatch(logout())}>Logout</div>
+                <span onClick={() => dispatch(logout())}>Logout</span>
               )}
             </Menu.Item>
             <Menu.Item key="3" style={{ float: "right" }}>

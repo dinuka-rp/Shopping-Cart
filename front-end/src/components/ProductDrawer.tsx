@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Rate } from "antd";
 import { ReduxState } from "../store/reducers";
 import { useSelector } from "react-redux";
+import { rateProduct } from "../services/ProductsManagement";
 interface Props {
   item: IProduct;
 }
@@ -38,6 +39,9 @@ const ProductDrawer: React.FC<Props> = ({ item }: Props) => {
 
   const updateUserRating = (rating: any) => {
     console.log("entered rating: ", rating);
+    if (previousRating === 0) {
+      rateProduct(item.id, rating);
+    }
     setPreviousRating(rating);
   };
 
@@ -61,7 +65,7 @@ const ProductDrawer: React.FC<Props> = ({ item }: Props) => {
       </div>
 
       {/* display if logged in */}
-      {token == null ? (
+      {token !== null ? (
         <div className={"rate"}>
           {/* area for user to input rating */}
           <div>~ Rate ~</div>

@@ -3,7 +3,7 @@ import { IUser } from "../../types/User";
 const initialUserState: IUser = {
   username: null,
   token: null,
-  isLoading: false,
+  isLoading: false,       // this isn't used for now
 };
 
 const UserReducer = (state = initialUserState, action: any) => {

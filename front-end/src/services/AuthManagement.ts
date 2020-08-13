@@ -22,13 +22,14 @@ export async function loginUser(username: string, password: string) {
   await axios
     .post(loginUserEndpoint, postBody, {})
     .then((response) => {
-      message.success("Login Successful");
       // token will be received. dispatch to Redux store
       store.dispatch(loginSuccess(username, response.data.access_token));
       window.location.href = "/";
+      message.success("Login Successful");
     })
     .catch((error) => {
       console.log(error);
+      message.error("Login Failed");
 
       store.dispatch(loginFailure());
     });
