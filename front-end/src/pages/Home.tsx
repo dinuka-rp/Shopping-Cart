@@ -10,7 +10,7 @@ const Home: React.FC = () => {
 
   const search = (searchTerm: string) => {
     const results = allProducts?.filter((salesitem: IProduct) =>
-      salesitem.title.toLowerCase().includes(searchTerm.trim())
+      salesitem.title.toLowerCase().includes(searchTerm.toLowerCase().trim())
     );
     setSearchResults(results);
   };

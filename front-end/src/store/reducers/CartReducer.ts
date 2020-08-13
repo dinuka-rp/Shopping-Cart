@@ -42,7 +42,7 @@ const CartReducer = (state = initialCartState, action: any) => {
     case "REMOVE_ITEM": // remove item
       // find item in cartItems[]
       let itemToBeRemoved = state.cartItems.find(
-        (item) => item.product.itemId === action.payload.itemId
+        (item) => item.product.id === action.payload.id
       );
 
       //remove item
@@ -62,7 +62,7 @@ const CartReducer = (state = initialCartState, action: any) => {
 
     case "ALTER_QUANTITY": // alter quantity of an item
       let alteredItem = state.cartItems.find(
-        (item) => item.product.itemId === action.payload.product.itemId
+        (item) => item.product.id === action.payload.product.id
       );
       if (alteredItem) {
         // if the item exists in the cart
@@ -70,7 +70,7 @@ const CartReducer = (state = initialCartState, action: any) => {
         alteredItem.quantity = action.payload.quantity;
 
         let alteredIndex: number = state.cartItems.findIndex(
-          (item) => item.product.itemId === action.payload.product.itemId
+          (item) => item.product.id === action.payload.product.id
         );
         state.cartItems[alteredIndex] = alteredItem; // replace the new item details in the state
 

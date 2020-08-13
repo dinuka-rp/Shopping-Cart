@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { Row, Col, Button, Popconfirm } from "antd";
 import { Link } from "react-router-dom";
 import { clearCart } from "../store/actions/CartItemAction";
+import { orderItems } from "../services/ProductsManagement";
 
 const ItemsSection = styled.div`
   max-height: 90vh;
@@ -60,6 +61,20 @@ const Cart: React.FC = () => {
     dispatch(clearCart());
   };
 
+  const onCheckout = () => {
+    // send api request to checkout
+
+    // required field for checkout req
+// add columns in backend - subTotal, otherCharges, otherChargesForPaymentMethod
+
+    // discount: number,
+    // delivery: number,
+    // totalPrice: number,        // change this to total amount
+    // cartDetails: JSON // (ICartItem - (image + rating))
+
+    // orderItems();
+  };
+
   return (
     <>
       {/* display minicart in header */}
@@ -71,7 +86,7 @@ const Cart: React.FC = () => {
             {cartItems.length > 0 ? (
               <>
                 {cartItems.map((cartItem: any) => (
-                  <CartItem key={cartItem.product.itemId} item={cartItem} />
+                  <CartItem key={cartItem.product.id} item={cartItem} />
                 ))}
                 <Popconfirm
                   title="Are you sure that you want to clear the entire cart?"
@@ -94,19 +109,19 @@ const Cart: React.FC = () => {
             <div className={"group"}>
               <div>Subtotal Price</div>
               {/* round to 2 decimal places */}
-              <div className={"value"}>$ {cart.subTotal}</div>
+              <div className={"value"}>$ {cart.subTotal.toFixed(2)}</div>
             </div>
             <div className={"group"}>
               <div>Discount</div>
-              <div className={"value"}>$ {cart.discount}</div>
+              <div className={"value"}>$ {cart.discount.toFixed(2)}</div>
             </div>
             <div className={"group"}>
               <div>Delivery</div>
-              <div className={"value"}>$ {cart.deliveryCharges}</div>
+              <div className={"value"}>$ {cart.deliveryCharges.toFixed(2)}</div>
             </div>
             <div className={"group"}>
               <div>Other Charges</div>
-              <div className={"value"}>$ {cart.otherCharges}</div>
+              <div className={"value"}>$ {cart.otherCharges.toFixed(2)}</div>
             </div>
             <div className={"group"}>
               <div>Other Charges for Payment Method</div>
@@ -117,11 +132,11 @@ const Cart: React.FC = () => {
             <div className={"group"}>
               <div>Total Price</div>
               {/* round to 2 decimal places */}
-              <div className={"value"}>$ {cart.totalAmount}</div>
+              <div className={"value"}>$ {cart.totalAmount.toFixed(2)}</div>
             </div>
 
             <div className={"btn"}>
-              <Button type="primary" block>
+              <Button type="primary" block onClick={onCheckout}>
                 Checkout
               </Button>
             </div>

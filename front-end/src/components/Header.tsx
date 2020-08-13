@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Layout, Menu } from "antd";
 import MiniCart from "./MiniCart";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { ReduxState } from "../store/reducers";
+import { logout } from "../store/actions/UserActions";
 
 interface Props {
   search?: (searchTerm: string) => void;
-  chosenTab: string;      // used to display the selected tab in light blue
+  chosenTab: string; // used to display the selected tab in light blue
 }
 
 const HeadArea = styled.div`
@@ -20,6 +23,16 @@ const { Search } = Input;
 const { Header, Content } = Layout;
 
 const HeaderArea: React.FC<Props> = ({ search, chosenTab }: Props) => {
+  let userProfile: any = useSelector((state: ReduxState) => state.user); // get entire user object saved in Redux state
+  const dispatch = useDispatch(); // used to update redux store state
+
+  const [token, setToken] = useState<string>(userProfile.token);
+
+  useEffect(() => {
+    setToken(userProfile.token);
+  }, [userProfile]);
+
+  
   return (
     <HeadArea>
       <Layout className="layout">
@@ -53,7 +66,12 @@ const HeaderArea: React.FC<Props> = ({ search, chosenTab }: Props) => {
             )}
 
             <Menu.Item key="2" style={{ float: "right" }}>
-              <Link to="/profile">Profile</Link>
+              {/* if logged in, display Button to logout */}
+              {token == null ? (
+                <Link to="/profile">Login</Link>
+              ) : (
+                <div onClick={() => dispatch(logout())}>Logout</div>
+              )}
             </Menu.Item>
             <Menu.Item key="3" style={{ float: "right" }}>
               <Link to="/cart">

@@ -25,7 +25,7 @@ export async function loginUser(username: string, password: string) {
       message.success("Login Successful");
       // token will be received. dispatch to Redux store
       store.dispatch(loginSuccess(username, response.data.access_token));
-      //   window.location.href = "/";
+      window.location.href = "/";
     })
     .catch((error) => {
       console.log(error);
@@ -45,7 +45,6 @@ export async function registerUser(
   email: string,
   mobileNum: string
 ) {
-
   let postBody = {
     username: username,
     password: password,

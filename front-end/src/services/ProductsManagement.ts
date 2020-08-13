@@ -14,7 +14,7 @@ axios.interceptors.request.use(
 
     let reduxState: any = store.getState();
     let token = reduxState.user.token;
-    config.headers.token = { token };
+    config.headers.token = `bearer ${token}`;
 
     return config;
   },
@@ -37,12 +37,12 @@ export async function retrieveProducts() {
 // ------------
 
 // Rate products by a user
-export async function rateProduct(itemId: string, rating: number) {
+export async function rateProduct(id: string, rating: number) {
   let reduxState: any = store.getState();
   let token = reduxState.user.token;
   if (token != null) {
     const res = await axios.post(
-      productsEndpoint + `:${itemId}/rate/:${rating}`,
+      productsEndpoint + `/:${id}/rate/:${rating}`,
       {}
     );
 

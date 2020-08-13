@@ -27,6 +27,9 @@ const UserReducer = (state = initialUserState, action: any) => {
     case "LOGOUT":
       // delete user details
       state = initialUserState;
+
+      // save the cart separately?
+
       return state;
 
     default:

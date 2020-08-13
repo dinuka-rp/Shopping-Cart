@@ -3,6 +3,8 @@ import { IProduct } from "../types/Product";
 import { StarFilled } from "@ant-design/icons";
 import styled from "styled-components";
 import { Rate } from "antd";
+import { ReduxState } from "../store/reducers";
+import { useSelector } from "react-redux";
 interface Props {
   item: IProduct;
 }
@@ -19,6 +21,13 @@ const Drawer = styled.div`
 
 const ProductDrawer: React.FC<Props> = ({ item }: Props) => {
   const [previousRating, setPreviousRating] = useState<number>(0);
+
+  let userProfile: any = useSelector((state: ReduxState) => state.user); // get entire user object saved in Redux state
+  const [token, setToken] = useState<string>(userProfile.token);
+
+  useEffect(() => {
+    setToken(userProfile.token);
+  }, [userProfile]);
 
   useEffect(() => {
     // get rating if user has rated this product before (using user_id & product_id)
@@ -50,11 +59,15 @@ const ProductDrawer: React.FC<Props> = ({ item }: Props) => {
           <StarFilled style={{ fontSize: "1em", color: "#f4eb14" }} />
         </div>
       </div>
-      <div className={"rate"}>
-        {/* area for user to input rating */}
-        <div>~ Rate ~</div>
-        <Rate onChange={updateUserRating} value={previousRating} />
-      </div>
+
+      {/* display if logged in */}
+      {token == null ? (
+        <div className={"rate"}>
+          {/* area for user to input rating */}
+          <div>~ Rate ~</div>
+          <Rate onChange={updateUserRating} value={previousRating} />
+        </div>
+      ) : null}
     </Drawer>
   );
 };
