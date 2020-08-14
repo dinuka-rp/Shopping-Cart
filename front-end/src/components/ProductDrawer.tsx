@@ -5,7 +5,11 @@ import styled from "styled-components";
 import { Rate } from "antd";
 import { ReduxState } from "../store/reducers";
 import { useSelector } from "react-redux";
-import { rateProduct } from "../services/ProductsManagement";
+import {
+  rateProduct,
+  getUserProductRating,
+  alterRateProduct,
+} from "../services/ProductsManagement";
 interface Props {
   item: IProduct;
 }
@@ -31,16 +35,20 @@ const ProductDrawer: React.FC<Props> = ({ item }: Props) => {
   }, [userProfile]);
 
   useEffect(() => {
-    // get rating if user has rated this product before (using user_id & product_id)
-    // retrieveRating().then((rating) => {
-    //   setPreviousRating(rating);
-    // });
-  }, []);
+    // get user's previous rating if user has rated this product before (using product_id)
+    // 0 will be returned if not rated before
+    getUserProductRating(item.id).then((rating) => {
+      // console.log(rating);
+      setPreviousRating(rating.data);
+    });
+  }, [item]);
 
   const updateUserRating = (rating: any) => {
     console.log("entered rating: ", rating);
     if (previousRating === 0) {
       rateProduct(item.id, rating);
+    } else {
+      alterRateProduct(item.id, rating);
     }
     setPreviousRating(rating);
   };

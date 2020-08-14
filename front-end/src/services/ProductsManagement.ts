@@ -53,7 +53,41 @@ export async function rateProduct(id: string, rating: number) {
   }
 }
 
+// Get existing rating of a product by a user
+export async function getUserProductRating(id: string) {
+  let reduxState: any = store.getState();
+  let token = reduxState.user.token;
+  if (token !== null) {
+    const res = await axios
+      .get(productsEndpoint + `/${id}/rate`, {})
+      .then((response: any) => {
+        // console.log(response);
+        return response;
+      });
+    return res;
+  } else {
+    console.log("token not found");
+  }
+}
+
 // Patch request to alter rating ---------->>>>>
+export async function alterRateProduct(id: string, rating: number) {
+  let reduxState: any = store.getState();
+  let token = reduxState.user.token;
+  if (token !== null) {
+    const res = await axios
+      .patch(productsEndpoint + `/${id}/rate/${rating}`, {})
+      .then((response: any) => {
+        // console.log(response);
+      });
+
+    return res;
+  } else {
+    console.log("token not found");
+  }
+}
+
+// ---------------
 
 // Order items by a user
 export async function orderItems(
