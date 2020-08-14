@@ -1,14 +1,17 @@
-export class IOrder {
+export interface IOrder {
   // id: string;      // id is autoincremented
+  subTotal: number;
   discount?: number;
   delivery?: number;
-  totalPrice: number;
+  otherCharges?: number;
+  otherChargesForPaymentMethod?: number;
+  totalAmount: number;
   cartDetails: ICartItem[];
 }
 
-export class ICartItem {
+export interface ICartItem {
   // product - (image + rating)
-  itemId: string;
+  id: string;
   title: string;
   price: number;
 

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Request } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { OrderDto } from './dto/order.dto';
@@ -10,7 +10,14 @@ export class OrdersController {
   // place order
   @UseGuards(JwtAuthGuard)
   @Post()
-  async placeOrder(@Body() createOrderDto: OrderDto): Promise<string> {
-    return this.ordersService.placeOrder(createOrderDto);
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  async placeOrder(
+    @Body() createOrderDto: OrderDto,
+    @Request() req: any,
+  ): Promise<string> {
+    // get userId from token
+    const userId: string = req.user.userId;
+
+    return this.ordersService.placeOrder(createOrderDto, userId);
   }
 }

@@ -13,14 +13,23 @@ export class Order {
   @PrimaryGeneratedColumn()
   id: string;
 
+  @Column({ type: 'double' })
+  subTotal: number;
+  
   @Column({ type: 'double', nullable: true })
   discount: number;
 
   @Column({ type: 'double', nullable: true })
   delivery: number;
 
+  @Column({ type: 'double', nullable: true })
+  otherCharges: number;
+
+  @Column({ type: 'double', nullable: true })
+  otherChargesForPaymentMethod: number;
+
   @Column('double')
-  totalPrice: number;
+  totalAmount: number;
 
   @Column({ type: 'json' })
   cartDetails: ICartItem[];

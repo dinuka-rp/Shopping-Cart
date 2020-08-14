@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { IProduct, CreateProduct, IRateProduct } from './interfaces/Product.interface';
+import {
+  IProduct,
+  CreateProduct,
+  IRateProduct,
+} from './interfaces/Product.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './products.entity';
@@ -42,10 +46,36 @@ export class ProductsService {
     // add record to rating entity
     await this.ratingRepository.insert(rating);
 
-    // update rating from product side using itemId, rating
+    // update rating from product side by querying the link table ---------------!!!!!!!!!!!! >>>>>>>>>>
+
     // this.productsRepository.update()
 
     return `${rating.rating} was given as the rating to product:${rating.productId} by user:${rating.userId}`;
+  }
+
+  // get rating previously given by user for the same product
+  async getUserRateProduct(primaryKey: {
+    productId: string;
+    userId: string;
+  }): Promise<number> {
+    const userProductRating = await this.ratingRepository.findOne(primaryKey);
+    // console.log(userProductRating);
+    if (userProductRating) {
+      // if the user has rated this product before (if not, will be undefined)
+      return userProductRating.rating;
+    } else {
+      return 0;
+    }
+  }
+
+  async alterRateProduct(rating: IRateProduct): Promise<string> {
+    const primaryKey = { productId: rating.productId, userId: rating.userId };
+
+    await this.ratingRepository.update(primaryKey, rating);
+
+    // update rating from product side by querying the link table ---------------!!!!!!!!!!!! >>>>>>>>>>
+
+    return `${rating.rating} was given as the updated rating to product:${rating.productId} by user:${rating.userId}`;
   }
 
   // -----------------------------------------------------

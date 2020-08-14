@@ -11,17 +11,15 @@ export class OrdersService {
     private ordersRepository: Repository<Order>,
   ) {}
 
-  async placeOrder(order: IOrder): Promise<string> {
-    // get userId using token(get username from token and get User from that)
-    // const user =  User
+  async placeOrder(order: IOrder, userId: string): Promise<string> {
 
-    // await this.ordersRepository.insert(order);
+    await this.ordersRepository.insert(order);
 
-    // await getConnection()
-    //   .createQueryBuilder()
-    //   .relation(Order, 'users')
-    //   .of(order)
-    //   .add(user);
+    await getConnection()
+      .createQueryBuilder()
+      .relation(Order, 'users')
+      .of(order)
+      .add(userId);
 
     return `The new order was recorded in the database`;
   }

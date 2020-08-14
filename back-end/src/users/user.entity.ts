@@ -27,7 +27,6 @@ export class User {
   mobileNum: string;
 
   // relationship used for Rating table
-
   @OneToMany(
     type => UserProductRating,
     userProductRating => userProductRating.user,
