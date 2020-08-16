@@ -4,10 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import CartItem from "../components/CartItem";
 import HeaderArea from "../components/Header";
 import styled from "styled-components";
-import { Row, Col, Button, Popconfirm } from "antd";
+import { Row, Col, Button, Popconfirm, message } from "antd";
 import { Link } from "react-router-dom";
 import { clearCart } from "../store/actions/CartItemAction";
-import { orderItems } from "../services/ProductsManagement";
+import { orderItems } from "../services/OrderManagement";
+import { IProduct, ICartItem } from "../types/Product";
+import { ICartDetailsItem } from "../types/Order";
 
 const ItemsSection = styled.div`
   max-height: 90vh;
@@ -61,18 +63,45 @@ const Cart: React.FC = () => {
     dispatch(clearCart());
   };
 
-  const onCheckout = () => {
+  const onCheckout = async () => {
     // send api request to checkout
 
-    // required field for checkout req
-// add columns in backend - subTotal, otherCharges, otherChargesForPaymentMethod
+    let checkoutCart: ICartDetailsItem[] = [];
 
-    // discount: number,
-    // delivery: number,
-    // totalPrice: number,        // change this to total amount
-    // cartDetails: JSON // (ICartItem - (image + rating))
+    await cartItems.forEach((item: ICartItem) => {
+      let product: IProduct = item.product;
+      const { image, rating, ...orderProduct } = product;
 
-    // orderItems();
+      checkoutCart.push({
+        ...orderProduct,
+        quantity: item.quantity,
+      });
+    });
+
+    const res: string = await orderItems({
+      subTotal: cart.subTotal.toFixed(2),
+      discount: cart.discount.toFixed(2),
+      delivery: cart.deliveryCharges.toFixed(2),
+      otherCharges: cart.otherCharges.toFixed(2),
+      otherChargesForPaymentMethod: cart.otherChargesForPaymentMethod.toFixed(
+        2
+      ),
+      totalAmount: cart.totalAmount.toFixed(2),
+      cartDetails: checkoutCart,
+    });
+
+    if (res === "The new order was recorded in the database") {
+      message.success({
+        content: "Your order has been placed.",
+        className: "custom-class",
+        style: {
+          marginTop: "20vh",
+        },
+      });
+
+      // clear the cart
+      clearAllItemsInCart();
+    }
   };
 
   return (

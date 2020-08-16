@@ -1,5 +1,5 @@
 import axios from "axios";
-import { productsEndpoint, orderItemsEndpoint } from "../endpoints";
+import { productsEndpoint } from "../endpoints";
 import { store } from "../index";
 
 // Add a request interceptor
@@ -80,33 +80,6 @@ export async function alterRateProduct(id: string, rating: number) {
       .then((response: any) => {
         // console.log(response);
       });
-
-    return res;
-  } else {
-    console.log("token not found");
-  }
-}
-
-// ---------------
-
-// Order items by a user
-export async function orderItems(
-  discount: number,
-  delivery: number,
-  totalPrice: number,
-  cartDetails: JSON // (ICartItem - (image + rating))
-) {
-  let postBody = {
-    discount: discount,
-    delivery: delivery,
-    totalPrice: totalPrice,
-    cartDetails: cartDetails,
-  };
-
-  let reduxState: any = store.getState();
-  let token = reduxState.user.token;
-  if (token != null) {
-    const res = await axios.post(orderItemsEndpoint, postBody, {});
 
     return res;
   } else {
