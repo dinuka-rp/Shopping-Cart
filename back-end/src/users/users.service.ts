@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, OneToMany, JoinTable } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { IRegisterUser } from 'src/register/interface/register.interface';
 

@@ -1,8 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { IRegisterUser } from './interface/register.interface';
-import { getConnection, Repository } from 'typeorm';
-import { User } from '../users/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from 'src/auth/auth.service';
 
@@ -14,7 +11,7 @@ export class RegisterService {
   ) {}
 
   async registerUser(newUser: IRegisterUser): Promise<any> {
-    // if(user ===)
+
     if (!newUser.username || !newUser.email) {
       // undefined/ null
       return 'Username & Email have to be provided.';

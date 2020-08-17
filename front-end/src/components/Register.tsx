@@ -1,8 +1,10 @@
 import React from "react";
-import { Form, Input, Select, Button } from "antd";
+import { Form, Input, Select, Button, message } from "antd";
 import HeaderArea from "./Header";
 import styled from "styled-components";
 import { registerUser } from "../services/AuthManagement";
+import { useDispatch } from "react-redux";
+import { loginSuccess, loginFailure } from "../store/actions/UserActions";
 // import { QuestionCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -39,17 +41,37 @@ const tailFormItemLayout = {
 
 const RegistrationForm = () => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch(); // used to update redux store state
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log("Received values of form: ", values);
 
-    registerUser(
+    const res: any = await registerUser(
       values.username,
       values.email,
       values.password,
       values.mobileNum
     );
-    // check response data and notify if username is already taken...
+
+    console.log(res);
+
+    if (res === "Username & Email have to be provided.") {
+      message.error(res);
+    } else if (
+      res ===
+      "This username has already been taken. Please choose another username."
+    ) {
+      message.error(res);
+    } else if (res) {
+      message.success("Account Creation Successful");
+      // token will be received. dispatch to Redux store
+      dispatch(loginSuccess(values.username, res.access_token));
+      window.location.href = "/";
+    } else {
+      // console.log(res);
+      message.error("Account Cration wasn't successful.");
+      dispatch(loginFailure());
+    }
   };
 
   const prefixSelector = (

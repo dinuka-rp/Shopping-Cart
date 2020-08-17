@@ -22,7 +22,7 @@ const Home: React.FC = () => {
       setAllProducts(products);
       setSearchResults(products);
     });
-  }, []);
+  }, [currentPage]);
 
   const onPageChange = (page: number) => {
     // console.log(page);
