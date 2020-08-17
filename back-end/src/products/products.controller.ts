@@ -9,6 +9,7 @@ import {
   UseGuards,
   Request,
   Patch,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -21,13 +22,11 @@ import { RateProductDto } from './dto/rate-product.dto';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-
-// get products with pagination -------->>>>>>>>>>>>>>>>>>>
-
+  // get products with pagination -------->>>>>>>>>>>>>>>>>>>
 
   @Get()
-  async getProducts(): Promise<Product[]> {
-    return this.productsService.getProducts();
+  async getProducts(@Query('page') page: number): Promise<Product[]> {
+    return this.productsService.getProducts(page);
   }
 
   @Get(':id')

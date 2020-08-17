@@ -19,13 +19,9 @@ export class ProductsService {
     private ratingRepository: Repository<UserProductRating>,
   ) {}
 
-  getProducts(): Promise<Product[]> {
-    return this.productsRepository.find();
+  getProducts(page = 1): Promise<Product[]> {
+    return this.productsRepository.find({ take: 25, skip: 25 * (page - 1) });
   }
-
-
-  // get products with pagination
-
 
   getProductById(id: string): Promise<Product> {
     return this.productsRepository.findOne(id);
