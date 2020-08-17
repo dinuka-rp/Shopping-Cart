@@ -10,7 +10,7 @@ import { UserProductRating } from 'src/link-enitities/rating.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  userId: string;
+  id: string;
 
   @Column({
     unique: true,

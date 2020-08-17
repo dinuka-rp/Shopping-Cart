@@ -83,7 +83,7 @@ const CartReducer = (state = initialCartState, action: any) => {
 
     case "CLEAR_CART": // clear entire cart (reset cart)
       state = initialCartState;
-      return state;
+      return {...state};
       
     default:
       return state;

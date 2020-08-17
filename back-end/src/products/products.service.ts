@@ -23,6 +23,10 @@ export class ProductsService {
     return this.productsRepository.find();
   }
 
+
+  // get products with pagination
+
+
   getProductById(id: string): Promise<Product> {
     return this.productsRepository.findOne(id);
   }

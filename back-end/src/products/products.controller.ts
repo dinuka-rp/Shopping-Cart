@@ -67,7 +67,7 @@ export class ProductsController {
     @Request() req: any,
   ): Promise<number> {
     // get userId from token
-    const userId: string = req.user.userId;
+    const userId: string = req.user.id;
 
     const primaryKey: {
       productId: string;
@@ -87,7 +87,7 @@ export class ProductsController {
     @Request() req: any,
   ): Promise<string> {
     // get userId from token
-    const userId: string = req.user.userId;
+    const userId: string = req.user.id;
 
     const rating: RateProductDto = {
       productId: productId,
@@ -108,7 +108,7 @@ export class ProductsController {
     @Request() req: any,
   ): Promise<string> {
     // get userId from token
-    const userId: string = req.user.userId;
+    const userId: string = req.user.id;
 
     const rating: RateProductDto = {
       productId: productId,

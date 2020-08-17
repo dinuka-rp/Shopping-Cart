@@ -16,7 +16,7 @@ export class OrdersController {
     @Request() req: any,
   ): Promise<string> {
     // get userId from token
-    const userId: string = req.user.userId;
+    const userId: string = req.user.id;
 
     return this.ordersService.placeOrder(createOrderDto, userId);
   }

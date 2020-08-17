@@ -18,11 +18,8 @@ const Profile: React.FC = () => {
       <ProfileForm>
         {/* let user toggle between Login and Register here?/ Display user profile here */}
 
-        {/* {token == null ? ( */}
         <Login />
-        {/* ) : (
-          <button onClick={() => dispatch(logout())}>Logout</button>
-        )} */}
+    
       </ProfileForm>
     </>
   );

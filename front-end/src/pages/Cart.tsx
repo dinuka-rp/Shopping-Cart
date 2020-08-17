@@ -8,7 +8,7 @@ import { Row, Col, Button, Popconfirm, message } from "antd";
 import { Link } from "react-router-dom";
 import { clearCart } from "../store/actions/CartItemAction";
 import { orderItems } from "../services/OrderManagement";
-import { IProduct, ICartItem } from "../types/Product";
+import { ICartItem } from "../types/Product";
 import { ICartDetailsItem } from "../types/Order";
 
 const ItemsSection = styled.div`
@@ -69,14 +69,16 @@ const Cart: React.FC = () => {
     let checkoutCart: ICartDetailsItem[] = [];
 
     await cartItems.forEach((item: ICartItem) => {
-      let product: IProduct = item.product;
-      const { image, rating, ...orderProduct } = product;
+      let product:any = item.product;
+      const { image, rating, availableQuantity, ...orderProduct } = product;      // avilableQuantity is anyway received from the backend and kept in product although not defined in IProduct
 
       checkoutCart.push({
         ...orderProduct,
         quantity: item.quantity,
       });
     });
+
+    console.log(checkoutCart);
 
     const res: string = await orderItems({
       subTotal: cart.subTotal.toFixed(2),
