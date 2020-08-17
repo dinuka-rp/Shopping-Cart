@@ -12,7 +12,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 // give dynamic name for cart when saving in Redux Persist storage would be enough
-// let cartUser = "Dinuka"   // get this from local storage/ redux
+// let cartUser = "Dinuka"   // get this from local storage/ redux - will be available only after persisting store?
 // let cartName = `cart_${cartUser}`;
 let cartName = `cart_guest`;
 

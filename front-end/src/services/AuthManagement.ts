@@ -22,17 +22,54 @@ export async function loginUser(username: string, password: string) {
   await axios
     .post(loginUserEndpoint, postBody, {})
     .then((response) => {
-      message.success("Login Successful");
       // token will be received. dispatch to Redux store
       store.dispatch(loginSuccess(username, response.data.access_token));
-      //   window.location.href = "/";
+      window.location.href = "/";
+      message.success("Login Successful");
     })
     .catch((error) => {
       console.log(error);
+      message.error("Login Failed");
 
       store.dispatch(loginFailure());
     });
   // .then(() => {
   //   // always executed
   // })
+}
+
+// register user
+// -- endpoint needs to be created in the backend
+export async function registerUser(
+  username: string,
+  password: string,
+  email: string,
+  mobileNum: string
+) {
+  let postBody = {
+    username: username,
+    email: email,
+    password: password,
+    mobileNum: mobileNum,
+  };
+
+  store.dispatch(loginRequest());
+
+  // let res =
+  await axios
+    .post(registerUserEndpoint, postBody, {})
+    .then((response) => {
+      message.success("Account Creation Successful");
+      // token will be received. dispatch to Redux store
+      store.dispatch(loginSuccess(username, response.data.access_token));
+      window.location.href = "/";
+    })
+    .catch((error) => {
+      console.log(error);
+      store.dispatch(loginFailure());
+    });
+
+// use res.data to check if the message received is successful, then do the actions that follow (without having it in a callback??)
+
+  // return res.data;
 }

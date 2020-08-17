@@ -22,7 +22,7 @@ const ProductGrid: React.FC<Props> = (props: Props) => {
     let cartItems = cart.cartItems;
     // filter cartItems[] by product and get the item with quantity(if it exists)
     let alteredItem = cartItems.find(
-      (item: ICartItem) => item.product.itemId === product.itemId
+      (item: ICartItem) => item.product.id === product.id
     );
 
     if (!cartItems.includes(alteredItem)) {
@@ -37,11 +37,12 @@ const ProductGrid: React.FC<Props> = (props: Props) => {
 
   return (
     <section style={{ width: "90%", textAlign: "center", margin: "auto" }}>
+      {/* {props.salesProducts && console.log(props.salesProducts)} */}
       {props.salesProducts &&
         props.salesProducts.map((item) => (
           <>
             <Product
-              key={item.itemId}
+              key={item.id} // id will be received from backend - db has id in Product entity------ nothing will work related to product with the backend
               item={item}
               addItemToCart={() => {
                 addItemToReduxStore(item);

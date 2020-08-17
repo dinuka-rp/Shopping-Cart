@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  JoinTable,
+} from 'typeorm';
+import { UserProductRating } from 'src/link-enitities/rating.entity';
 
 @Entity()
 export class Product {
@@ -18,9 +25,14 @@ export class Product {
   @Column({ nullable: true })
   availableQuantity: number;
 
-  @Column({ nullable: true })
-  purchasedQuantity: number;
-
   @Column({ default: 0 })
   rating: number;
+
+  // relationship used for Rating table
+  @OneToMany(
+    type => UserProductRating,
+    userProductRating => userProductRating.product,
+  )
+  @JoinTable()
+  userProductRating: UserProductRating[];
 }

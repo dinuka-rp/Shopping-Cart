@@ -3,7 +3,7 @@ import { IUser } from "../../types/User";
 const initialUserState: IUser = {
   username: null,
   token: null,
-  isLoading: false,
+  isLoading: false,       // this isn't used for now
 };
 
 const UserReducer = (state = initialUserState, action: any) => {
@@ -27,7 +27,12 @@ const UserReducer = (state = initialUserState, action: any) => {
     case "LOGOUT":
       // delete user details
       state = initialUserState;
-      return state;
+
+      // save the cart separately?
+
+      // dispatch cart reducer option to clear cart
+
+      return {...state};
 
     default:
       return state;

@@ -1,19 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { IProduct, CreateProduct } from './interfaces/Product.interface';
+import {
+  IProduct,
+  CreateProduct,
+  IRateProduct,
+} from './interfaces/Product.interface';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, ManyToMany, JoinTable } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Product } from './products.entity';
-import { User } from 'src/users/user.entity';
+import { UserProductRating } from 'src/link-enitities/rating.entity';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private productsRepository: Repository<Product>,
+
+    @InjectRepository(UserProductRating)
+    private ratingRepository: Repository<UserProductRating>,
   ) {}
 
-  getProducts(): Promise<Product[]> {
-    return this.productsRepository.find();
+  getProducts(page = 1): Promise<Product[]> {
+    return this.productsRepository.find({ take: 2, skip: 2 * (page - 1) });
   }
 
   getProductById(id: string): Promise<Product> {
@@ -35,14 +42,41 @@ export class ProductsService {
     return `The new product was added to the database`;
   }
 
-  async rateProduct(itemId: number, rate: number, userId: string): Promise<string> {
-    return `${rate} was given as the rating to ${itemId} by ${userId}`;
+  async rateProduct(rating: IRateProduct): Promise<string> {
+    // add record to rating entity
+    await this.ratingRepository.insert(rating);
+
+    // update rating from product side by querying the link table ---------------!!!!!!!!!!!! >>>>>>>>>>
+
+    // this.productsRepository.update()
+
+    return `${rating.rating} was given as the rating to product:${rating.productId} by user:${rating.userId}`;
   }
 
-  // relationship used for Rating table
-  @ManyToMany(type => User)
-  @JoinTable()
-  users: User[];
+  // get rating previously given by user for the same product
+  async getUserRateProduct(primaryKey: {
+    productId: string;
+    userId: string;
+  }): Promise<number> {
+    const userProductRating = await this.ratingRepository.findOne(primaryKey);
+    // console.log(userProductRating);
+    if (userProductRating) {
+      // if the user has rated this product before (if not, will be undefined)
+      return userProductRating.rating;
+    } else {
+      return 0;
+    }
+  }
+
+  async alterRateProduct(rating: IRateProduct): Promise<string> {
+    const primaryKey = { productId: rating.productId, userId: rating.userId };
+
+    await this.ratingRepository.update(primaryKey, rating);
+
+    // update rating from product side by querying the link table ---------------!!!!!!!!!!!! >>>>>>>>>>
+
+    return `${rating.rating} was given as the updated rating to product:${rating.productId} by user:${rating.userId}`;
+  }
 
   // -----------------------------------------------------
 

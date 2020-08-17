@@ -14,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    console.log(payload);       // { username: 'john', iat: 1597035559, exp: 1597035619 }  doesn't contain sub-> won't return userId
-    return { userId: payload.sub, username: payload.username };
+    // console.log(payload);
+    return { id: payload.sub, username: payload.username };
   }
 }

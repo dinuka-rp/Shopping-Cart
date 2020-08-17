@@ -8,14 +8,14 @@ export class AppController {
   constructor(private authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
-  @Post('auth/login')
-  async login(@Request() req) {
+  @Post('login')
+  async login(@Request() req:any) {
     return this.authService.login(req.user); // return authentication token
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  getProfile(@Request() req:any) {
     return req.user; // return user details
   }
 }

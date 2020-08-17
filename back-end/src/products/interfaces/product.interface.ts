@@ -1,6 +1,6 @@
 // product in store
 export interface IProduct {
-  itemId: string;               // change this to number in frontend --------- >>>>>>>>
+  itemId: string;
   image?: string | undefined;
   title: string;
   price: number;
@@ -12,4 +12,10 @@ export interface CreateProduct {
   image?: string | undefined;
   title: string;
   price: number;
+}
+// rate product
+export interface IRateProduct {
+  productId: string;
+  userId: string;
+  rating: number;
 }

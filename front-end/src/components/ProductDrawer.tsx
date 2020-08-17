@@ -3,6 +3,13 @@ import { IProduct } from "../types/Product";
 import { StarFilled } from "@ant-design/icons";
 import styled from "styled-components";
 import { Rate } from "antd";
+import { ReduxState } from "../store/reducers";
+import { useSelector } from "react-redux";
+import {
+  rateProduct,
+  getUserProductRating,
+  alterRateProduct,
+} from "../services/ProductsManagement";
 interface Props {
   item: IProduct;
 }
@@ -20,15 +27,29 @@ const Drawer = styled.div`
 const ProductDrawer: React.FC<Props> = ({ item }: Props) => {
   const [previousRating, setPreviousRating] = useState<number>(0);
 
+  let userProfile: any = useSelector((state: ReduxState) => state.user); // get entire user object saved in Redux state
+  const [token, setToken] = useState<string>(userProfile.token);
+
   useEffect(() => {
-    // get rating if user has rated this product before (using user_id & product_id)
-    // retrieveRating().then((rating) => {
-    //   setPreviousRating(rating);
-    // });
-  }, []);
+    setToken(userProfile.token);
+  }, [userProfile]);
+
+  useEffect(() => {
+    // get user's previous rating if user has rated this product before (using product_id)
+    // 0 will be returned if not rated before
+    getUserProductRating(item.id).then((rating) => {
+      // console.log(rating);
+      setPreviousRating(rating.data);
+    });
+  }, [item]);
 
   const updateUserRating = (rating: any) => {
     console.log("entered rating: ", rating);
+    if (previousRating === 0) {
+      rateProduct(item.id, rating);
+    } else {
+      alterRateProduct(item.id, rating);
+    }
     setPreviousRating(rating);
   };
 
@@ -50,11 +71,15 @@ const ProductDrawer: React.FC<Props> = ({ item }: Props) => {
           <StarFilled style={{ fontSize: "1em", color: "#f4eb14" }} />
         </div>
       </div>
-      <div className={"rate"}>
-        {/* area for user to input rating */}
-        <div>~ Rate ~</div>
-        <Rate onChange={updateUserRating} value={previousRating} />
-      </div>
+
+      {/* display if logged in */}
+      {token !== null ? (
+        <div className={"rate"}>
+          {/* area for user to input rating */}
+          <div>~ Rate ~</div>
+          <Rate onChange={updateUserRating} value={previousRating} />
+        </div>
+      ) : null}
     </Drawer>
   );
 };

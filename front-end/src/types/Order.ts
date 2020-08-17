@@ -6,14 +6,14 @@ export interface IOrder {
   otherCharges?: number;
   otherChargesForPaymentMethod?: number;
   totalAmount: number;
-  cartDetails: ICartItem[];
+  cartDetails: ICartDetailsItem[];
 }
 
-export interface ICartItem {
+export interface ICartDetailsItem {
   // product - (image + rating)
   id: string;
   title: string;
   price: number;
-
+  // +
   quantity: number;
 }

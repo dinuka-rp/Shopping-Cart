@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { Product } from './products/products.entity';
 import { Order } from './orders/orders.entity';
+import { UserProductRating } from './link-enitities/rating.entity';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { Order } from './orders/orders.entity';
       username: 'root',
       password: '',
       database: 'shopping-cart-zone',
-      entities: [User, Product, Order],
+      entities: [User, Product, Order,UserProductRating],
       synchronize: true,
     }),
   ],
