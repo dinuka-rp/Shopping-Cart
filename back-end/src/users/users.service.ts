@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, OneToMany, JoinTable } from 'typeorm';
 import { User } from './user.entity';
+import { IRegisterUser } from 'src/register/interface/register.interface';
 
 // export type User = any;
 
@@ -25,10 +26,23 @@ export class UsersService {
     });
   }
 
+  async checkIfExists(usernameToBeVerified: string): Promise<boolean> {
+    if (
+      (await this.usersRepository.count({ username: usernameToBeVerified })) > 0
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  async addNewUser(newUser: IRegisterUser): Promise<User> {
+    await this.usersRepository.insert(newUser);
+    return this.findOne(newUser.username);      // the created user will be returned
+  }
+
   // async remove(id: string): Promise<void> {
   //   await this.usersRepository.delete(id);
   // }
-
 
   // -----------------------------------------------------
 
