@@ -37,7 +37,7 @@ const ProductGrid: React.FC<Props> = (props: Props) => {
 
   return (
     <section style={{ width: "90%", textAlign: "center", margin: "auto" }}>
-      {props.salesProducts && console.log(props.salesProducts)}
+      {/* {props.salesProducts && console.log(props.salesProducts)} */}
       {props.salesProducts &&
         props.salesProducts.map((item) => (
           <>

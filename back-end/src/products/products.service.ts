@@ -20,7 +20,7 @@ export class ProductsService {
   ) {}
 
   getProducts(page = 1): Promise<Product[]> {
-    return this.productsRepository.find({ take: 25, skip: 25 * (page - 1) });
+    return this.productsRepository.find({ take: 2, skip: 2 * (page - 1) });
   }
 
   getProductById(id: string): Promise<Product> {

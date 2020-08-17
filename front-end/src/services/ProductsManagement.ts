@@ -27,9 +27,9 @@ axios.interceptors.request.use(
 // ---------------
 // methods for user purchasing & rating of products
 
-// Get all items available in the shop
-export async function retrieveProducts() {
-  const res = await axios.get(productsEndpoint, {});
+// Get all items available in the shop - with pagination
+export async function retrieveProducts(page: number) {
+  const res = await axios.get(productsEndpoint + `?page=${page}`, {});
 
   return res.data;
 }
