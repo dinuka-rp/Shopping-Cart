@@ -55,17 +55,14 @@ export async function registerUser(
 
   store.dispatch(loginRequest());
 
-  // let res =
   const res = await axios.post(registerUserEndpoint, postBody, {});
 
   // if (res === "error") {
   //   console.log(error);
   //   store.dispatch(loginFailure());
   // }
-
+  
+  // use res.data to check if the message received is successful, then do the actions that follow (without having it in a callback??)
   return res.data;
 
-  // use res.data to check if the message received is successful, then do the actions that follow (without having it in a callback??)
-
-  // return res.data;
 }

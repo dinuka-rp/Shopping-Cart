@@ -5,7 +5,7 @@ import {
   IRateProduct,
 } from './interfaces/Product.interface';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, getConnection } from 'typeorm';
 import { Product } from './products.entity';
 import { UserProductRating } from 'src/link-enitities/rating.entity';
 
@@ -46,9 +46,21 @@ export class ProductsService {
     // add record to rating entity
     await this.ratingRepository.insert(rating);
 
-    // update rating from product side by querying the link table ---------------!!!!!!!!!!!! >>>>>>>>>>
+    // update rating from product side by querying the link table ---
+    const { avg } = await getConnection()
+      .getRepository(UserProductRating)
+      .createQueryBuilder('userRating')
+      .select('AVG(userRating.rating)', 'avg')
+      .where('userRating.productId = :id', { id: rating.productId })
+      .getRawOne();
 
     // this.productsRepository.update()
+    await getConnection()
+      .createQueryBuilder()
+      .update(Product)
+      .set({ rating: Math.round(avg) })
+      .where('id = :id', { id: rating.productId })
+      .execute();
 
     return `${rating.rating} was given as the rating to product:${rating.productId} by user:${rating.userId}`;
   }
@@ -73,7 +85,21 @@ export class ProductsService {
 
     await this.ratingRepository.update(primaryKey, rating);
 
-    // update rating from product side by querying the link table ---------------!!!!!!!!!!!! >>>>>>>>>>
+    // update rating from product side by querying the link table ---
+    const { avg } = await getConnection()
+      .getRepository(UserProductRating)
+      .createQueryBuilder('userRating')
+      .select('AVG(userRating.rating)', 'avg')
+      .where('userRating.productId = :id', { id: rating.productId })
+      .getRawOne();
+
+    // this.productsRepository.update()
+    await getConnection()
+      .createQueryBuilder()
+      .update(Product)
+      .set({ rating: Math.round(avg) })
+      .where('id = :id', { id: rating.productId })
+      .execute();
 
     return `${rating.rating} was given as the updated rating to product:${rating.productId} by user:${rating.userId}`;
   }
