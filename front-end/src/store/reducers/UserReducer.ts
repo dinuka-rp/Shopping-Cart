@@ -30,7 +30,7 @@ const UserReducer = (state = initialUserState, action: any) => {
 
       // save the cart separately?
 
-      // dispatch cart reducer option to clear cart
+      // dispatch cart reducer option to clear cart?? or change cart name?
 
       return {...state};
 

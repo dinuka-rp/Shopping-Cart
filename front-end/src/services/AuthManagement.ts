@@ -55,21 +55,14 @@ export async function registerUser(
 
   store.dispatch(loginRequest());
 
-  // let res =
-  await axios
-    .post(registerUserEndpoint, postBody, {})
-    .then((response) => {
-      message.success("Account Creation Successful");
-      // token will be received. dispatch to Redux store
-      store.dispatch(loginSuccess(username, response.data.access_token));
-      window.location.href = "/";
-    })
-    .catch((error) => {
-      console.log(error);
-      store.dispatch(loginFailure());
-    });
+  const res = await axios.post(registerUserEndpoint, postBody, {});
 
-// use res.data to check if the message received is successful, then do the actions that follow (without having it in a callback??)
+  // if (res === "error") {
+  //   console.log(error);
+  //   store.dispatch(loginFailure());
+  // }
+  
+  // use res.data to check if the message received is successful, then do the actions that follow (without having it in a callback??)
+  return res.data;
 
-  // return res.data;
 }

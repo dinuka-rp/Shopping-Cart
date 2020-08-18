@@ -22,8 +22,7 @@ import { RateProductDto } from './dto/rate-product.dto';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  // get products with pagination -------->>>>>>>>>>>>>>>>>>>
-
+  // get products with pagination
   @Get()
   async getProducts(@Query('page') page: number): Promise<Product[]> {
     return this.productsService.getProducts(page);

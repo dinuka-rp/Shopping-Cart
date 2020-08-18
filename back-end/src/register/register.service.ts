@@ -1,11 +1,27 @@
 import { Injectable } from '@nestjs/common';
+import { IRegisterUser } from './interface/register.interface';
+import { UsersService } from 'src/users/users.service';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class RegisterService {
-  // async registerUser(): Promise<string>{
- 
-  // check if the username already exists and return a error message?
-  // user already exisiting login method in auth service?
-  // generate token using JWT service?
-  // }
+  constructor(
+    private usersService: UsersService,
+    private authService: AuthService,
+  ) {}
+
+  async registerUser(newUser: IRegisterUser): Promise<any> {
+
+    if (!newUser.username || !newUser.email) {
+      // undefined/ null
+      return 'Username & Email have to be provided.';
+    } else if (await this.usersService.checkIfExists(newUser.username)) {
+      return 'This username has already been taken. Please choose another username.';
+    } else {
+      const user: any = await this.usersService.addNewUser(newUser);
+
+      // need to pass the newly created user to get the id, to generate jwt
+      return this.authService.login(user); // return jwt
+    }
+  }
 }
