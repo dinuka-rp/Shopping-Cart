@@ -13,6 +13,7 @@ import { store } from "../index";
 // login user
 export async function loginUser(username: string, password: string) {
   store.dispatch(loginRequest());
+  localStorage.setItem("username", username);
 
   let postBody = {
     username: username,
@@ -23,11 +24,19 @@ export async function loginUser(username: string, password: string) {
     .post(loginUserEndpoint, postBody, {})
     .then((response) => {
       // token will be received. dispatch to Redux store
-      store.dispatch(loginSuccess(username, response.data.access_token));
-      window.location.href = "/";
+      store.dispatch(
+        loginSuccess(
+          username,
+          response.data.access_token,
+          response.data.refresh_token
+        )
+      );
       message.success("Login Successful");
+
+      // window.location.href = "/";     // redirect to home page (refreshes redux state)
     })
     .catch((error) => {
+      localStorage.removeItem(username);
       console.log(error);
       message.error("Login Failed");
 
@@ -53,16 +62,7 @@ export async function registerUser(
     mobileNum: mobileNum,
   };
 
-  store.dispatch(loginRequest());
-
   const res = await axios.post(registerUserEndpoint, postBody, {});
 
-  // if (res === "error") {
-  //   console.log(error);
-  //   store.dispatch(loginFailure());
-  // }
-  
-  // use res.data to check if the message received is successful, then do the actions that follow (without having it in a callback??)
   return res.data;
-
 }

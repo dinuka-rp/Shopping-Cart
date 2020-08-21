@@ -78,7 +78,7 @@ const Cart: React.FC = () => {
       });
     });
 
-    console.log(checkoutCart);
+    // console.log(checkoutCart);
 
     const res: string = await orderItems({
       subTotal: cart.subTotal.toFixed(2),

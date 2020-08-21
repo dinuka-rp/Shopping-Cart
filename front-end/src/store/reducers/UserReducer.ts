@@ -3,7 +3,8 @@ import { IUser } from "../../types/User";
 const initialUserState: IUser = {
   username: null,
   token: null,
-  isLoading: false,       // this isn't used for now
+  refreshToken: null,
+  isLoading: false, // this isn't used for now
 };
 
 const UserReducer = (state = initialUserState, action: any) => {
@@ -18,21 +19,26 @@ const UserReducer = (state = initialUserState, action: any) => {
       state.isLoading = false;
       state.username = action.payload.username;
       state.token = action.payload.token;
+      state.refreshToken = action.payload.refreshToken;
+
       return { ...state };
 
     case "LOGIN_FAILURE":
       state.isLoading = false;
       return { ...state };
 
+    case "RENEW_TOKEN":
+      state.token = action.payload.token; // access token
+      state.refreshToken = action.payload.refreshToken;
+
+      return { ...state };
+
     case "LOGOUT":
+      localStorage.removeItem("username");
       // delete user details
       state = initialUserState;
-
-      // save the cart separately?
-
-      // dispatch cart reducer option to clear cart?? or change cart name?
-
-      return {...state};
+      
+      return { ...state };
 
     default:
       return state;

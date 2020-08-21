@@ -4,7 +4,7 @@ import HeaderArea from "./Header";
 import styled from "styled-components";
 import { registerUser } from "../services/AuthManagement";
 import { useDispatch } from "react-redux";
-import { loginSuccess, loginFailure } from "../store/actions/UserActions";
+import { loginSuccess, loginFailure, loginRequest } from "../store/actions/UserActions";
 // import { QuestionCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -46,6 +46,8 @@ const RegistrationForm = () => {
   const onFinish = async (values: any) => {
     console.log("Received values of form: ", values);
 
+    dispatch(loginRequest());
+
     const res: any = await registerUser(
       values.username,
       values.email,
@@ -65,7 +67,9 @@ const RegistrationForm = () => {
     } else if (res) {
       message.success("Account Creation Successful");
       // token will be received. dispatch to Redux store
-      dispatch(loginSuccess(values.username, res.access_token));
+      dispatch(
+        loginSuccess(values.username, res.access_token, res.refresh_token)
+      );
       window.location.href = "/";
     } else {
       // console.log(res);

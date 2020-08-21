@@ -5,6 +5,7 @@ export const productsEndpoint = `${shopBackend}products`; // get all shop produc
 
 export const loginUserEndpoint = `${shopBackend}login`; // login user
 export const registerUserEndpoint = `${shopBackend}register`; // Register new user
+export const refreshTokenEndpoint = `${shopBackend}refresh`; // renew token & refresh token
 
 export const orderItemsEndpoint = `${shopBackend}orders`; // order items by a user
 
