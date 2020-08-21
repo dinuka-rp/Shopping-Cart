@@ -20,4 +20,11 @@ export class OrdersController {
 
     return this.ordersService.placeOrder(createOrderDto, userId);
   }
+
+  // guest - place order
+  @Post('guest')
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  async placeGuestOrder(@Body() createOrderDto: OrderDto): Promise<string> {
+    return this.ordersService.placeGuestOrder(createOrderDto);
+  }
 }

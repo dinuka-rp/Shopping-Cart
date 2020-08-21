@@ -86,3 +86,27 @@ export async function orderItems(order: IOrder) {
     console.log("token not found");
   }
 }
+// ------------
+
+// Order items by a guest
+export async function orderItemsGuest(order: IOrder) {
+  let postBody = {
+    subTotal: order.subTotal,
+    discount: order.discount,
+    delivery: order.delivery,
+    otherCharges: order.otherCharges,
+    otherChargesForPaymentMethod: order.otherChargesForPaymentMethod,
+    totalAmount: order.totalAmount,
+    cartDetails: order.cartDetails,
+  };
+
+  let reduxState: any = store.getState();
+  let token = reduxState.user.token;
+  if (token == null) {
+    const res = await axios.post(orderItemsEndpoint+"/guest", postBody, {});
+
+    return res.data;
+  } else {
+    console.log("user exists");
+  }
+}
