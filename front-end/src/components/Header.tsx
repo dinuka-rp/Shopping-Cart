@@ -32,7 +32,6 @@ const HeaderArea: React.FC<Props> = ({ search, chosenTab }: Props) => {
     setToken(userProfile.token);
   }, [userProfile]);
 
-  
   return (
     <HeadArea>
       <Layout className="layout">
@@ -42,28 +41,17 @@ const HeaderArea: React.FC<Props> = ({ search, chosenTab }: Props) => {
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={[chosenTab]} // pass this in from parent component
-            style={{ display: "flex" }}
+            // style={{ display: "flex" }}
           >
             <Menu.Item key="1">
               <Link to="/">Home</Link>
             </Menu.Item>
-            {search && (
-              <Content
-                style={{
-                  display: "inline-block",
-                  flexGrow: 1,
-                  textAlign: "center",
-                }}
-              >
-                <Search
-                  placeholder="input search text"
-                  onSearch={(value) => search(value)}
-                  style={{ maxWidth: 400, minWidth: 200, paddingTop: "15px" }}
-                  enterButton
-                  allowClear
-                />
-              </Content>
-            )}
+
+            <Menu.Item key="3" style={{ float: "right" }}>
+              <Link to="/cart">
+                <MiniCart />
+              </Link>
+            </Menu.Item>
 
             <Menu.Item key="2" style={{ float: "right" }}>
               {/* if logged in, display Button to logout */}
@@ -73,13 +61,27 @@ const HeaderArea: React.FC<Props> = ({ search, chosenTab }: Props) => {
                 <span onClick={() => dispatch(logout())}>Logout</span>
               )}
             </Menu.Item>
-            <Menu.Item key="3" style={{ float: "right" }}>
-              <Link to="/cart">
-                <MiniCart />
-              </Link>
-            </Menu.Item>
           </Menu>
         </Header>
+
+        {search && (
+          <Content
+            style={{
+              display: "block",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              textAlign: "center",
+            }}
+          >
+            <Search
+              placeholder="input search text"
+              onSearch={(value) => search(value)}
+              style={{ maxWidth: 400, minWidth: 200 }}
+              enterButton
+              allowClear
+            />
+          </Content>
+        )}
       </Layout>
     </HeadArea>
   );

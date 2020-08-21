@@ -40,7 +40,7 @@ const Home: React.FC = () => {
 
       <ProductGrid salesProducts={searchResults} />
 
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", marginTop:"20px" }}>
         <Pagination current={currentPage} onChange={onPageChange} total={50} />
       </div>
     </>

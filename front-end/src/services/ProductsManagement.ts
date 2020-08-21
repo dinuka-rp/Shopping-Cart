@@ -35,7 +35,11 @@ axios.interceptors.response.use(
     let refreshToken = reduxState.user.refreshToken;
 
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (
+      error.response && // avoid connection refused error
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
       return axios
         .post(refreshTokenEndpoint, {
@@ -61,7 +65,6 @@ axios.interceptors.response.use(
   }
 );
 // reference: https://medium.com/swlh/handling-access-and-refresh-tokens-using-axios-interceptors-3970b601a5da
-
 
 // ---------------
 // methods for user purchasing & rating of products

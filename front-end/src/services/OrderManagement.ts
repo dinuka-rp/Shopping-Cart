@@ -36,7 +36,11 @@ axios.interceptors.response.use(
     let refreshToken = reduxState.user.refreshToken;
 
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (
+      error.response &&      // avoid connection refused error
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
       return axios
         .post(refreshTokenEndpoint, {
@@ -103,7 +107,7 @@ export async function orderItemsGuest(order: IOrder) {
   let reduxState: any = store.getState();
   let token = reduxState.user.token;
   if (token == null) {
-    const res = await axios.post(orderItemsEndpoint+"/guest", postBody, {});
+    const res = await axios.post(orderItemsEndpoint + "/guest", postBody, {});
 
     return res.data;
   } else {
