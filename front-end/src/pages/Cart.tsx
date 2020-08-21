@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { Row, Col, Button, Popconfirm, message } from "antd";
 import { Link } from "react-router-dom";
 import { clearCart } from "../store/actions/CartItemAction";
-import { orderItems } from "../services/OrderManagement";
+import { orderItems, orderItemsGuest } from "../services/OrderManagement";
 import { ICartItem } from "../types/Product";
 import { ICartDetailsItem } from "../types/Order";
 
@@ -55,6 +55,9 @@ const Cart: React.FC = () => {
   let cart: any = useSelector((state: ReduxState) => state.cart); // get entire cart object saved in Redux state
   const [cartItems, setCartItems] = useState(cart.cartItems);
 
+  let user: any = useSelector((state: ReduxState) => state.user); // get user object saved in Redux state
+  let token = user.token;
+
   useEffect(() => {
     setCartItems(cart.cartItems);
   }, [cart.cartItems]);
@@ -69,8 +72,8 @@ const Cart: React.FC = () => {
     let checkoutCart: ICartDetailsItem[] = [];
 
     await cartItems.forEach((item: ICartItem) => {
-      let product:any = item.product;
-      const { image, rating, availableQuantity, ...orderProduct } = product;      // avilableQuantity is anyway received from the backend and kept in product although not defined in IProduct
+      let product: any = item.product;
+      const { image, rating, availableQuantity, ...orderProduct } = product; // avilableQuantity is anyway received from the backend and kept in product although not defined in IProduct
 
       checkoutCart.push({
         ...orderProduct,
@@ -78,20 +81,33 @@ const Cart: React.FC = () => {
       });
     });
 
-    console.log(checkoutCart);
-
-    const res: string = await orderItems({
-      subTotal: cart.subTotal.toFixed(2),
-      discount: cart.discount.toFixed(2),
-      delivery: cart.deliveryCharges.toFixed(2),
-      otherCharges: cart.otherCharges.toFixed(2),
-      otherChargesForPaymentMethod: cart.otherChargesForPaymentMethod.toFixed(
-        2
-      ),
-      totalAmount: cart.totalAmount.toFixed(2),
-      cartDetails: checkoutCart,
-    });
-
+    // console.log(checkoutCart);
+    let res: string = "";
+    if (token !== null) {
+      res = await orderItems({
+        subTotal: cart.subTotal.toFixed(2),
+        discount: cart.discount.toFixed(2),
+        delivery: cart.deliveryCharges.toFixed(2),
+        otherCharges: cart.otherCharges.toFixed(2),
+        otherChargesForPaymentMethod: cart.otherChargesForPaymentMethod.toFixed(
+          2
+        ),
+        totalAmount: cart.totalAmount.toFixed(2),
+        cartDetails: checkoutCart,
+      });
+    } else {
+      res = await orderItemsGuest({
+        subTotal: cart.subTotal.toFixed(2),
+        discount: cart.discount.toFixed(2),
+        delivery: cart.deliveryCharges.toFixed(2),
+        otherCharges: cart.otherCharges.toFixed(2),
+        otherChargesForPaymentMethod: cart.otherChargesForPaymentMethod.toFixed(
+          2
+        ),
+        totalAmount: cart.totalAmount.toFixed(2),
+        cartDetails: checkoutCart,
+      });
+    }
     if (res === "The new order was recorded in the database") {
       message.success({
         content: "Your order has been placed.",

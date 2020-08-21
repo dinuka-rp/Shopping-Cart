@@ -42,7 +42,7 @@ const ProductGrid: React.FC<Props> = (props: Props) => {
         props.salesProducts.map((item) => (
           <>
             <Product
-              key={item.id} // id will be received from backend - db has id in Product entity------ nothing will work related to product with the backend
+              key={item.id}
               item={item}
               addItemToCart={() => {
                 addItemToReduxStore(item);

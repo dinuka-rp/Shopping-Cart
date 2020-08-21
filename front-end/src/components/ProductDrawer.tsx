@@ -37,14 +37,16 @@ const ProductDrawer: React.FC<Props> = ({ item }: Props) => {
   useEffect(() => {
     // get user's previous rating if user has rated this product before (using product_id)
     // 0 will be returned if not rated before
-    getUserProductRating(item.id).then((rating) => {
-      if (rating.data) {
-        setPreviousRating(rating.data);
-      } else {
-        setPreviousRating(0);
-      }
-    });
-  }, [item]);
+    if (token !== null) {
+      getUserProductRating(item.id).then((rating) => {
+        if (rating.data) {
+          setPreviousRating(rating.data);
+        } else {
+          setPreviousRating(0);
+        }
+      });
+    }
+  }, [item, token]);
 
   const updateUserRating = (rating: any) => {
     console.log("entered rating: ", rating);

@@ -12,7 +12,6 @@ export class OrdersService {
   ) {}
 
   async placeOrder(order: IOrder, userId: string): Promise<string> {
-
     await this.ordersRepository.insert(order);
 
     await getConnection()
@@ -21,6 +20,12 @@ export class OrdersService {
       .of(order)
       .add(userId);
 
+    return `The new order was recorded in the database`;
+  }
+
+  async placeGuestOrder(order: IOrder): Promise<string> {
+    await this.ordersRepository.insert(order);
+    
     return `The new order was recorded in the database`;
   }
 }
