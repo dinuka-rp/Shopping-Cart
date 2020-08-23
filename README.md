@@ -9,6 +9,7 @@ Full-stack take home assessment @ Zone24x7
 - React
 - NestJS
 - MySQL
+- Yarn
 
 ## Development Setup
 
@@ -66,3 +67,39 @@ _REACT_APP_API_ENDPOINT=http://localhost:3001/api/v1/_ is expected as the endpoi
 <hr/>
 
 ##### [Project Specification](https://docs.google.com/document/d/14DZ95y8sMXMlmLBU4mQaHyqW6jXmj2GAj_-MaS4aXLk/edit?ts=5efc5b3a#)
+##### [UI Wireframes](https://projects.invisionapp.com/share/F3W3F8BKJEV)
+
+#### Requirements Completition status
+
+- [x] Users should be able to register into the application (by providing email, password and mobile number).
+- [x] User login (username and password).
+- [x] Available products need to be shown on the homepage as a grid view.
+- [x] Users should be able to search for available products.
+- [x] Logged in users should be able to rate the product. The average rate should be shown in the product.
+- [x] Users should be able to add products to a shopping cart.
+- [x] Number of product items need to be indicated in the mini cart in the top-bar. 
+- [ ] The shopping cart needs to be available for logged in users when the user revisits (The shopping cart needs to be visible even after reopening a closed browser) 
+- [x] Users should be able to continue shopping or checkout in the shopping cart view.
+- [x] When the checkout button is clicked, the shopping cart state needs to be changed according to the general flow.
+- [x] order details need to be matched with cart details when the checkout happens.
+
+<br/>
+
+- [x] Pagination for product grid
+- [x] Responsiveness of the frontend app
+
+##### Technology Requirements
+Frontend
+- [x] React using *create-react-app*
+- [x] TypeScript
+- [x] Ant Design - UI Framework
+- [x] Redux 
+
+Backend
+- [x] NestJS
+- [x] TypeScript
+- [x] TypeORM
+- [ ] PostgreSQL
+- [x] JWT
+- [x] Refresh token
+
