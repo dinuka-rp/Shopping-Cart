@@ -54,6 +54,7 @@ The listening port of the backend has been set to 3001 in the `main.ts` file in 
 _REACT_APP_API_ENDPOINT=http://localhost:3001/api/v1/_ is expected as the endpoint
 
 <hr/>
+
 #### Run the Backend/ Frotnend
 
 `yarn start`
