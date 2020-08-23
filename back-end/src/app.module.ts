@@ -29,7 +29,7 @@ import { UserProductRating } from 'src/link-enitities/rating.entity';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         return {
-          type: configService.get('DB_TYPE'),
+          type: configService.get('DB_TYPE', 'mysql'),
           host: configService.get('DB_HOST', 'localhost'),
           port: configService.get<number>('DB_PORT'),
           username: configService.get('DB_USER'),
