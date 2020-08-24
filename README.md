@@ -56,9 +56,15 @@ _REACT_APP_API_ENDPOINT=http://localhost:3001/api/v1/_ is expected as the endpoi
 
 <hr/>
 
+#### Install Packages in Backend & Frotnend
+
+Run `yarn install` in the root folder of each project.
+
+<hr/>
+
 #### Run the Backend/ Frotnend
 
-`yarn start`
+Run `yarn start` in the root folder of each project.
 
 <!-- > Use --build only when you run it for the first time or if you have made changes to the code
 
