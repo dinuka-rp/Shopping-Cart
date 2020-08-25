@@ -30,6 +30,13 @@ services:
     image: mysql
     ports:
       - 3306:3306
+    volumes:
+      - dbdata:/var/lib/mysql
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=shopping-cart-zone
+      - MYSQL_USER=root
+
+volumes:
+  dbdata:
+    driver: local  # is already local by default
