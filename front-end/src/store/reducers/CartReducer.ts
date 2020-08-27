@@ -1,6 +1,38 @@
 import { ICart } from "../../types/CartReducer";
 import { ICartItem } from "../../types/Product";
 
+
+// give dynamic name for cart when saving in Redux Persist storage would be enough
+// let cartUser = localStorage.getItem("username"); // get this from local storage/ redux - will be available only after reloading persisted store
+// let cartName;
+// if (localStorage.getItem("username")) {
+//   cartName = `cart_${cartUser}`;
+// } else {
+  // cartName = `cart_guest`;
+// }
+
+// have state as, to have different cart for each user
+// Cart:{
+// Guest_Cart: [ cartItems: [],
+// subTotal: 0,
+// discount: 0,
+// deliveryCharges: 0,
+// otherCharges: 0,
+// otherChargesForPaymentMethod: 0,
+// totalAmount: 0,
+// ]
+// ,
+// $username_Cart: [ cartItems: [],
+// subTotal: 0,
+// discount: 0,
+// deliveryCharges: 0,
+// otherCharges: 0,
+// otherChargesForPaymentMethod: 0,
+// totalAmount: 0,
+// ]
+// }
+
+
 const initialCartState: ICart = {
   cartItems: [],
   subTotal: 0,
@@ -38,6 +70,7 @@ const CartReducer = (state = initialCartState, action: any) => {
       state.subTotal = calculateSubTotal(state.cartItems);
       state.totalAmount = calculateTotalAmount(state);
       return { ...state };
+      // return { ...state, "abcdef":"hsf" };
 
     case "REMOVE_ITEM": // remove item
       // find item in cartItems[]
