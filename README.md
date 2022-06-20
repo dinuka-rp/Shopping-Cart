@@ -84,7 +84,7 @@ Run `yarn start` in the root folder of each project.
 - [x] Logged in users should be able to rate the product. The average rate should be shown in the product.
 - [x] Users should be able to add products to a shopping cart.
 - [x] Number of product items need to be indicated in the mini cart in the top-bar. 
-- [ ] The shopping cart needs to be available for logged in users when the user revisits (The shopping cart needs to be visible even after reopening a closed browser) 
+- [x] The shopping cart needs to be available for logged in users when the user revisits (The shopping cart needs to be visible even after reopening a closed browser) 
 - [x] Users should be able to continue shopping or checkout in the shopping cart view.
 - [x] When the checkout button is clicked, the shopping cart state needs to be changed according to the general flow.
 - [x] order details need to be matched with cart details when the checkout happens.
